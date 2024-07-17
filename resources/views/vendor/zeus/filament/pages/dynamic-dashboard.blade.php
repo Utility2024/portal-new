@@ -15,7 +15,7 @@
                                     @endphp
                                     <div class="my-10">
                                         @if($data['data']['title'])
-                                            <h5 class="mb-2 bg-gray-100 dark:bg-gray-900 border border-primary-200 dark:border-primary-900/50 rounded-3xl ltr:rounded-tl-none rtl:rounded-tr-none absolute -mt-8 px-4 py-2 shadow font-bold text-sm lg:text-lg text-primary-600 dark:text-primary-100">
+                                            <h5 class="mb-2 bg-gray-100 border border-primary-200 rounded-3xl ltr:rounded-tl-none rtl:rounded-tr-none absolute -mt-8 px-4 py-2 shadow font-bold text-sm lg:text-lg text-primary-600">
                                                 {{ $data['data']['title'] }}
                                             </h5>
                                         @endif

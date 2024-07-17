@@ -6,6 +6,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use App\Filament\Auth\Login;
 use Filament\Support\Colors\Color;
 use Filament\Http\Middleware\Authenticate;
 use App\Filament\Widgets\LatestMeasurement;
@@ -33,8 +34,9 @@ class UtilityPanelProvider extends PanelProvider
             ->brandName('UTILITY PORTAL')
             ->id('utility')
             ->path('utility')
-            ->login()
-            // ->register()
+            ->login(Login::class)
+            ->profile()
+            ->passwordReset()
             ->colors([
                 'primary' => Color::Amber,
             ])

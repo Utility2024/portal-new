@@ -23,7 +23,10 @@ return new class extends Migration
             $table->unsignedBigInteger('minimum_stock');
             $table->string('unit');
             $table->string('information');
-            $table->timestamps();
+            $table->string('price')->nullable();
+            $table->string('total_price')->nullable();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

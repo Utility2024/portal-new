@@ -11,14 +11,14 @@
                 class="fi-simple-main-ctn flex w-full flex-grow items-center justify-center"
             >
                 <main
-                    class="fi-simple-main my-16 w-full bg-white px-6 py-12 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 sm:max-w-lg sm:rounded-xl sm:px-12"
+                    class="fi-simple-main my-16 w-full bg-white px-6 py-12 shadow-sm ring-1 ring-gray-950/5 sm:max-w-lg sm:rounded-xl sm:px-12"
                 >
                     {{--Slot --}}
                     <div class="flex flex-row justify-center">
                         <img class="w-56 h-56 rounded-full" src="{{ \Filament\Facades\Filament::getUserAvatarUrl(\Filament\Facades\Filament::auth()->user())}}" alt="avatar">
                     </div>
                     <div class="flex flex-row justify-center">
-                        <div class="font-medium dark:text-white">
+                        <div class="font-medium">
                             <div>{{\Filament\Facades\Filament::auth()->user()?->name ?? ''}}</div>
                         </div>
                     </div>

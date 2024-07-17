@@ -43,7 +43,7 @@
         "laravel/socialite": "^5.15",
         "laravel/tinker": "^2.8",
         "leandrocfe/filament-apex-charts": "3.1",
-        "livewire/livewire": "^3.4",
+        "livewire/livewire": "^3.0",
         "marjose123/filament-lockscreen": "2.0",
         "oriondevelops/filament-backup": "^1.0",
         "owen-it/laravel-auditing": "^13.6",
@@ -123,7 +123,7 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
     
 }

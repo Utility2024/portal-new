@@ -30,3 +30,12 @@ Route::group(['middleware' => 'redirect.if.not.installed'], function () {
         return view('landing_page');
     });
 });
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});

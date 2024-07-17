@@ -58,7 +58,7 @@
         icon-size="lg"
         @click="$dispatch('open-modal', { id: 'panel-switch' })"
         label="Switch Panels"
-        @class(["bg-gray-100 !rounded-full dark:bg-custom-500/20"])
+        @class(["bg-gray-100 !rounded-full"])
         style="{{ \Filament\Support\get_color_css_variables('primary', shades: [100, 500]) }}; min-width: 36px;"
     />
 
@@ -82,7 +82,7 @@
                 >
                     <div
                         @class([
-                            "p-2 bg-white rounded-lg shadow-md dark:bg-gray-800 panel-switch-card-section",
+                            "p-2 bg-white rounded-lg shadow-md panel-switch-card-section",
                             "group-hover:ring-2 group-hover:ring-primary-600" => $panel->getId() !== $currentPanel->getId(),
                             "ring-2 ring-primary-600" => $panel->getId() === $currentPanel->getId(),
                         ])
@@ -103,9 +103,9 @@
                     </div>
                     <span
                         @class([
-                            "mt-2 text-sm font-medium text-center text-gray-400 dark:text-gray-200 break-words panel-switch-card-title",
-                            "text-gray-400 dark:text-gray-200 group-hover:text-primary-600 group-hover:dark:text-primary-400" => $panel->getId() !== $currentPanel->getId(),
-                            "text-primary-600 dark:text-primary-400" => $panel->getId() === $currentPanel->getId(),
+                            "mt-2 text-sm font-medium text-center text-gray-400 break-words panel-switch-card-title",
+                            "text-gray-400 group-hover:text-primary-600 group-hover:dark:text-primary-400" => $panel->getId() !== $currentPanel->getId(),
+                            "text-primary-600" => $panel->getId() === $currentPanel->getId(),
                         ])
                     >
                         {{ $labels[$panel->getId()] ?? str($panel->getId())->ucfirst()}}

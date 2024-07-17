@@ -25,9 +25,9 @@
         [x-cloak] {display: none !important;}
     </style>
 </head>
-<body class="font-sans antialiased bg-gray-50 text-gray-900 dark:text-gray-100 dark:bg-gray-900 @if(app()->isLocal()) debug-screens @endif">
+<body class="font-sans antialiased bg-gray-50 text-gray-900 @if(app()->isLocal()) debug-screens @endif">
 
-<header x-data="{ open: false }" class="bg-white dark:bg-black px-4">
+<header x-data="{ open: false }" class="bg-white px-4">
     <div class="container mx-auto">
         <div class="flex justify-between h-16">
             <div class="flex">
@@ -50,7 +50,7 @@
     </div>
 </header>
 
-<header class="bg-gray-100 dark:bg-gray-800">
+<header class="bg-gray-100">
         <div class="container mx-auto py-2 px-3">
             <div class="flex justify-between items-center">
                 <div class="w-full">
@@ -62,7 +62,7 @@
                         </nav>
                     @endif
                     @if(isset($header))
-                        <div class="italic font-semibold text-xl text-gray-600 dark:text-gray-100">
+                        <div class="italic font-semibold text-xl text-gray-600">
                             {{ $header }}
                         </div>
                     @endif
@@ -76,7 +76,7 @@
     {{ $slot }}
 </div>
 
-<footer class="bg-gray-100 dark:bg-gray-800 p-6 text-center font-light">
+<footer class="bg-gray-100 p-6 text-center font-light">
     <a href="https://larazeus.com" target="_blank">
         a gift with ❤️ &nbsp;from @zeus
     </a>

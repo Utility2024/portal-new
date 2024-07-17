@@ -6,7 +6,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
-use Filament\Pages\Auth\Login;
+use App\Filament\Auth\Login;
 use Filament\Support\Colors\Color;
 use Hasnayeen\Themes\ThemesPlugin;
 use EightyNine\Approvals\ApprovalPlugin;
@@ -38,6 +38,8 @@ class AdministrationPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->path('admin')
             ->login(Login::class)
+            ->profile()
+            ->passwordReset()
             ->colors([
                 'primary' => Color::Blue,
             ])

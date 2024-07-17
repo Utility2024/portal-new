@@ -6,7 +6,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
-use Filament\Pages\Auth\Login;
+use App\Filament\Auth\Login;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Hasnayeen\Themes\ThemesPlugin;
@@ -79,6 +79,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('esd')
             ->path('esd')
             ->login(Login::class)
+            ->profile()
+            ->passwordReset()
             ->databaseNotifications()
             ->colors([
                 'primary' => Color::Blue,

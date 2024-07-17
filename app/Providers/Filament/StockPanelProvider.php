@@ -6,12 +6,14 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use App\Filament\Auth\Login;
 use Filament\Support\Colors\Color;
 use Hasnayeen\Themes\ThemesPlugin;
 use App\Filament\Stock\Widgets\Graph;
 use Filament\Http\Middleware\Authenticate;
 use Rmsramos\Activitylog\ActivitylogPlugin;
 use App\Filament\Stock\Widgets\LatestMaterial;
+use Hasnayeen\Themes\Http\Middleware\SetTheme;
 use App\Filament\Stock\Widgets\UserTransaction;
 use Illuminate\Session\Middleware\StartSession;
 use App\Filament\Stock\Widgets\AUserTransaction;
@@ -27,7 +29,6 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Hasnayeen\Themes\Http\Middleware\SetTheme;
 
 class StockPanelProvider extends PanelProvider
 {
@@ -36,7 +37,9 @@ class StockPanelProvider extends PanelProvider
         return $panel
             ->id('stock')
             ->path('stock')
-            ->login()
+            ->login(Login::class)
+            ->profile()
+            ->passwordReset()
             ->brandName('Stock Control Material')
             ->colors([
                 'primary' => Color::Amber,

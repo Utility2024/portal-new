@@ -2,27 +2,31 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Panel;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Support\Facades\Storage;
-use Filament\Models\Contracts\HasAvatar;
-use Filament\Notifications\Notification;
-use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
-use Tapp\FilamentInvite\Notifications\SetPassword;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Edwink\FilamentUserActivity\Traits\UserActivityTrait;
 use BetterFuturesStudio\FilamentLocalLogins\Concerns\HasLocalLogins;
-use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
 
-class User extends Authenticatable implements FilamentUser, Auditable
+class User extends Authenticatable implements MustVerifyEmail,  FilamentUser, Auditable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPanelShield, UserActivityTrait, HasLocalLogins,\OwenIt\Auditing\Auditable;
+    use HasApiTokens;
+    use HasFactory;
+    use HasProfilePhoto;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
+    use HasPanelShield;
+    use UserActivityTrait;
+    use HasLocalLogins;
+    use \OwenIt\Auditing\Auditable;
 
     const ROLE_ADMIN = 'ADMIN';
 
@@ -57,6 +61,8 @@ class User extends Authenticatable implements FilamentUser, Auditable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
     ];
 
     /**
@@ -66,9 +72,16 @@ class User extends Authenticatable implements FilamentUser, Auditable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'profile_photo_url',
+    ];
 
     public function canAccessPanel(Panel $panel): bool
     {
@@ -86,6 +99,4 @@ class User extends Authenticatable implements FilamentUser, Auditable
     public function isUser(){
         return $this->role === self::ROLE_USER;
     }
-
-
 }

@@ -37,29 +37,28 @@ class AppServiceProvider extends ServiceProvider
             $labels = [];
         
             if ($user) {
-                if ($user->hasAnyRole(['super_admin', 'manager', 'spv', 'panel_user'])) {
+                if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
                     $icons['esd'] = 'heroicon-o-bolt';
                     $labels['esd'] = 'ESD';
                 }
         
-                if ($user->hasAnyRole(['super_admin', 'manager', 'spv', 'panel_user'])) {
+                if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
                     $icons['utility'] = 'heroicon-o-adjustments-vertical';
                     $labels['utility'] = 'Utility';
                 }
         
-                if ($user->hasAnyRole(['super_admin', 'manager', 'spv', 'panel_user'])) {
+                if ($user->isAdmin()) {
                     $icons['admin'] = 'heroicon-o-user';
                     $labels['admin'] = 'Admin';
                 }
 
-                if ($user->hasAnyRole(['super_admin', 'manager', 'spv','panel_user'])) {
+                if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
                     $icons['stock'] = 'heroicon-o-inbox-stack';
                     $labels['stock'] = 'Stock Material';
                 }
             }
             
             $panelSwitch
-                //->modalWidth('sm')
                 ->modalHeading('Switch Portal')
                 ->slideOver()
                 ->icons($icons)
@@ -67,8 +66,5 @@ class AppServiceProvider extends ServiceProvider
                 ->labels($labels)
                 ->visible(fn (): bool => !empty($icons)); // Show the panel only if there are icons to display
         });
-        
-        
-        
     }
 }
