@@ -59,19 +59,28 @@ class PackagingDetailResource extends Resource
                 Card::make()
                     ->schema([
                         Select::make('packaging_id')
-                            ->label('Packaging')
-                            ->options(fn() => Packaging::pluck('register_no', 'id')->toArray())
-                            ->rules('required'),
-
-                        Select::make('status')
+                            ->label('Register No')
+                            ->required()
+                            ->relationship('packaging', 'register_no')
+                            ->searchable()
+                            ->reactive()
+                            ->afterStateUpdated(function (callable $set, $state) {
+                                $Packaging = Packaging::find($state);
+                                if ($Packaging) {
+                                    $set('status', $Packaging->status);
+                                } else {
+                                    $set('status', null);
+                                }
+                            }),
+                        TextInput::make('status')
                             ->label('Status')
-                            ->options(fn() => Packaging::pluck('status', 'id')->toArray())
-                            ->rules('required'),
+                            // ->options(fn() => Packaging::pluck('status', 'id')->toArray())
+                            ->required(),
 
                         Select::make('item')
                             ->label('Item')
                             ->options(['Tray' => 'Tray', 'Black Box' => 'Black Box'])
-                            ->rules('required'),
+                            ->required(),
                         ]),
                 Card::make()
                     ->schema([

@@ -6,13 +6,17 @@ use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\GroundMonitorBox;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
+use Illuminate\Support\Collection;
 use Filament\Forms\Components\Card;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\Filter;
 use Forms\Components\ToggleButtons;
 use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Blade;
 use App\Models\GroundMonitorBoxDetail;
 use Filament\Tables\Filters\Indicator;
 use Filament\Forms\Components\Textarea;
@@ -26,9 +30,6 @@ use Filament\Infolists\Components\Card as InfolistCard;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use App\Filament\Resources\GroundMonitorBoxDetailResource\Pages;
 use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Blade;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class GroundMonitorBoxDetailResource extends Resource
 {
@@ -49,15 +50,25 @@ class GroundMonitorBoxDetailResource extends Resource
             ->schema([
                 Card::make([
                     Select::make('ground_monitor_box_id')
-                        ->relationship('groundMonitorBox', 'register_no')
+                        ->label('Register No')
                         ->required()
-                        ->label('Ground Monitor Box'),
-                    Select::make('area')
-                        ->relationship('groundMonitorBox', 'area')
+                        ->relationship('groundMonitorBox', 'register_no')
+                        ->searchable()
+                        ->reactive()
+                        ->afterStateUpdated(function (callable $set, $state) {
+                            $GroundMonitorBox = GroundMonitorBox::find($state);
+                            if ($GroundMonitorBox) {
+                                $set('area', $GroundMonitorBox->area);
+                                $set('location', $GroundMonitorBox->location);
+                            } else {
+                                $set('area', null);
+                                $set('location', null);
+                            }
+                        }),
+                    TextInput::make('area')
                         ->required()
                         ->label('Area'),
-                    Select::make('location')
-                        ->relationship('groundMonitorBox', 'location')
+                    TextInput::make('location')
                         ->required()
                         ->label('Location'),
                     Forms\Components\ToggleButtons::make('g1')

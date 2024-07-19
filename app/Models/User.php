@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Edwink\FilamentUserActivity\Traits\UserActivityTrait;
 use BetterFuturesStudio\FilamentLocalLogins\Concerns\HasLocalLogins;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail,  FilamentUser, Auditable
 {
@@ -26,7 +27,10 @@ class User extends Authenticatable implements MustVerifyEmail,  FilamentUser, Au
     use HasPanelShield;
     use UserActivityTrait;
     use HasLocalLogins;
+    use HasRoles;
     use \OwenIt\Auditing\Auditable;
+
+    const ROLE_SUPERADMIN = 'SUPERADMIN';
 
     const ROLE_ADMIN = 'ADMIN';
 
@@ -35,6 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail,  FilamentUser, Au
     const ROLE_USER = 'USER';
 
     const ROLES = [
+        self::ROLE_SUPERADMIN =>'SuperAdmin',
         self::ROLE_ADMIN => 'Admin',
         self::ROLE_EDITOR => 'Editor',
         self::ROLE_USER => 'User',
@@ -83,9 +88,18 @@ class User extends Authenticatable implements MustVerifyEmail,  FilamentUser, Au
         'profile_photo_url',
     ];
 
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->isAdmin() || $this->isEditor() || $this->isUser();
+        return $this->isSuperAdmin() || $this->isAdmin() || $this->isEditor() || $this->isUser();
+    }
+
+    public function isSuperAdmin(){
+        return $this->role === self::ROLE_SUPERADMIN;
     }
 
     public function isAdmin(){

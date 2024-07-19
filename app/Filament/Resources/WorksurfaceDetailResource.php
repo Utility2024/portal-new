@@ -7,14 +7,18 @@ use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\Worksurface;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use App\Models\WorksurfaceDetail;
 use Filament\Support\Colors\Color;
+use Illuminate\Support\Collection;
 use Awcodes\Shout\Components\Shout;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\Filter;
 use Forms\Components\ToggleButtons;
+use Illuminate\Support\Facades\Blade;
 use Filament\Tables\Filters\Indicator;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
@@ -23,11 +27,8 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\Card as InfolistCard;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use App\Filament\Resources\WorksurfaceDetailResource\Pages;
-use App\Filament\Resources\WorksurfaceDetailResource\Widgets\WorksurfaceDetailStatsOverview;
 use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Blade;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Filament\Resources\WorksurfaceDetailResource\Widgets\WorksurfaceDetailStatsOverview;
 
 class WorksurfaceDetailResource extends Resource
 {
@@ -50,15 +51,26 @@ class WorksurfaceDetailResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('worksurface_id')
                             ->label('Register No')
+                            ->required()
                             ->relationship('worksurface', 'register_no')
-                            ->required(),
-                        Forms\Components\Select::make('area')
+                            ->searchable()
+                            ->reactive()
+                            ->afterStateUpdated(function (callable $set, $state) {
+                                $Worksurface = Worksurface::find($state);
+                                if ($Worksurface) {
+                                    $set('area', $Worksurface->area);
+                                    $set('location', $Worksurface->location);
+                                } else {
+                                    $set('area', null);
+                                    $set('location', null);
+                                    
+                                }
+                            }),
+                        Forms\Components\TextInput::make('area')
                             ->label('Area')
-                            ->relationship('worksurface', 'area')
                             ->required(),
-                        Forms\Components\Select::make('location')
+                        Forms\Components\TextInput::make('location')
                             ->label('Location')
-                            ->relationship('worksurface', 'location')
                             ->required(),
                         Forms\Components\Select::make('item')
                             ->options([

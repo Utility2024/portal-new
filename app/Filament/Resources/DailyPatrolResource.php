@@ -41,6 +41,8 @@ class DailyPatrolResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
+    protected static ?string $navigationGroup = 'Patrol ESD';
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

@@ -69,7 +69,6 @@ class TransactionResource extends Resource
                         ->disabled(),
                     Forms\Components\TextInput::make('price')
                         ->label('Price')
-                        ->required()
                         ->numeric()
                         ->label('Price')
                         ->prefix('$'), // Make price read-only
@@ -97,7 +96,6 @@ class TransactionResource extends Resource
                         ->label('PIC')
                         ->maxLength(255),
                     Forms\Components\TextArea::make('keterangan')
-                        ->required()
                         ->maxLength(255),
                 ])->Columns(2),
         ]);

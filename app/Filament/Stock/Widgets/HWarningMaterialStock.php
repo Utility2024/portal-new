@@ -23,6 +23,14 @@ class HWarningMaterialStock extends BaseWidget
             ->columns([
                 Tables\Columns\TextColumn::make('sap_code')
                     ->label('SAP Code'),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Type')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'Spare Part' => 'info',
+                        'Indirect Material' => 'warning',
+                        'Office Supply' => 'success',
+                    }),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Description'),
                 Tables\Columns\TextColumn::make('last_stock')

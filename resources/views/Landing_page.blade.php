@@ -76,7 +76,7 @@
             </div>
           </div>
           <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-            <img src=" {{ url('images/hero-img.png') }}" class="img-fluid animated" alt="">
+            <img src=" {{ url('images/logo_siix_2.png') }}" class="img-fluid animated" alt="">
           </div>
         </div>
       </div>
@@ -134,25 +134,25 @@
     <!-- Section Title -->
     <div class="container section-title text-center" data-aos="fade-up">
         <h2>Team</h2>
-        <p>Our hard working team</p>
+        <p>Our working team</p>
     </div><!-- End Section Title -->
 
     <div class="container">
         <div class="row gy-4 justify-content-center">
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-2 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                 <div class="team-member text-center d-flex flex-column">
                     <div class="member-img">
                         <img src="{{ url('images/widi.jpg') }}" class="img-fluid team-img" alt="">
                     </div>
                     <div class="member-info mt-auto">
-                        <h4>Widi Fajar. S</h4>
+                        <h4>Widi Fajar Satritama</h4>
                         <!-- <span>Chief Executive Officer</span>
                         <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p> -->
                     </div>
                 </div>
             </div><!-- End Team Member -->
 
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-lg-2 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
                 <div class="team-member text-center d-flex flex-column">
                     <div class="member-img">
                         <img src="{{ url('images/oki.jpg') }}" class="img-fluid team-img" alt="">
@@ -165,13 +165,13 @@
                 </div>
             </div><!-- End Team Member -->
 
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="col-lg-2 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
                 <div class="team-member text-center d-flex flex-column">
                     <div class="member-img">
                         <img src="{{ url('images/rudi.jpg') }}" class="img-fluid team-img" alt="">
                     </div>
                     <div class="member-info mt-auto">
-                        <h4>Pratama Handika. R</h4>
+                        <h4>Pratama Handika Rudiyanta</h4>
                         <!-- <span>CTO</span>
                         <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p> -->
                     </div>

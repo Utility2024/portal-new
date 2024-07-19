@@ -19,11 +19,11 @@ class AUserStatsOverview extends BaseWidget
         $initialDay = Carbon::now('Asia/Jakarta')->format('l'); // Get the day of the week
 
         return [
-            Stat::make('Current Day', $initialDay)
+            Stat::make('Today', $initialDay)
                 ->color('primary'),
-            Stat::make('Current Date', $initialDate)
+            Stat::make('Date', $initialDate)
                 ->color('primary'),
-            Stat::make('Current Time', $initialTime)
+            Stat::make('Time', $initialTime)
                 ->color('primary'),
             Stat::make('Total Waiting Material Patrols', $waitingmaterialCount)
                 ->chart([10, 5, 30, 10, 50, 20, 70])

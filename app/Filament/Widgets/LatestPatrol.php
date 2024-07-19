@@ -19,7 +19,9 @@ class LatestPatrol extends BaseWidget
             ->defaultPaginationPageOption(5)
             ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('id')->sortable(),
+                TextColumn::make('id')
+                    ->label('No')
+                    ->sortable(),
                 TextColumn::make('description_problem')
                     ->label('Description of Problem'),
                 // TextColumn::make('area')

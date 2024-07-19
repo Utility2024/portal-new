@@ -52,17 +52,30 @@ class SolderingDetailResource extends Resource
             ->schema([
                 Card::make([
                     Select::make('soldering_id')
-                        ->label('Soldering')
-                        ->options(fn() => Soldering::pluck('register_no', 'id')->toArray())
-                        ->rules('required'),
-                    Select::make('area')
+                        ->label('Register No')
+                        ->required()
+                        ->relationship('soldering', 'register_no')
+                        ->searchable()
+                        ->reactive()
+                        ->afterStateUpdated(function (callable $set, $state) {
+                            $Soldering = Soldering::find($state);
+                            if ($Soldering) {
+                                $set('area', $Soldering->area);
+                                $set('location', $Soldering->location);
+                            } else {
+                                $set('area', null);
+                                $set('location', null);
+                                
+                            }
+                        }),
+                    TextInput::make('area')
                         ->label('Area')
-                        ->options(fn() => Soldering::pluck('area', 'id')->toArray())
-                        ->rules('required'),
-                    Select::make('location')
+                        // ->options(fn() => Soldering::pluck('area', 'id')->toArray())
+                        ->required(),
+                    TextInput::make('location')
                         ->label('Location')
-                        ->options(fn() => Soldering::pluck('location', 'id')->toArray())
-                        ->rules('required'),
+                        // ->options(fn() => Soldering::pluck('location', 'id')->toArray())
+                        ->required(),
                     ]),
                 Card::make()
                     ->schema([

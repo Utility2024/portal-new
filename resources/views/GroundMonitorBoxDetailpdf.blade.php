@@ -124,7 +124,7 @@
     </div>
     
     <div class="footer">
-        <p>QR-ADM-24-K056 (Rev-00) | Print on: {{ \Carbon\Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s') }}</p>
+        <p>QR-ADM-22-K018 (Rev-00) | Print on: {{ \Carbon\Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s') }}</p>
     </div>
 </body>
 </html>

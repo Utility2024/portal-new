@@ -5,12 +5,15 @@ namespace App\Filament\Resources;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\Ionizer;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\IonizerDetail;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
+use Illuminate\Support\Collection;
 use Awcodes\Shout\Components\Shout;
 use Filament\Forms\Components\Card;
 use Filament\Tables\Actions\Action;
@@ -18,6 +21,7 @@ use Filament\Tables\Filters\Filter;
 use Forms\Components\ToggleButtons;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Blade;
 use Filament\Tables\Filters\Indicator;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
@@ -29,9 +33,6 @@ use Filament\Infolists\Components\Card as InfolistCard;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 use App\Filament\Resources\IonizerDetailResource\RelationManagers;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Blade;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class IonizerDetailResource extends Resource
 {
@@ -53,15 +54,25 @@ class IonizerDetailResource extends Resource
                 Card::make()
                     ->schema([
                     Forms\Components\Select::make('ionizer_id')
-                        ->relationship('ionizer', 'register_no')
+                        ->label('Register No')
                         ->required()
-                        ->label('Register No'),
-                    Forms\Components\Select::make('area')
-                        ->relationship('ionizer', 'area')
+                        ->relationship('Ionizer', 'register_no')
+                        ->searchable()
+                        ->reactive()
+                        ->afterStateUpdated(function (callable $set, $state) {
+                            $Ionizer = Ionizer::find($state);
+                            if ($Ionizer) {
+                                $set('area', $Ionizer->area);
+                                $set('location', $Ionizer->location);
+                            } else {
+                                $set('area', null);
+                                $set('location', null);
+                            }
+                        }),
+                    Forms\Components\TextInput::make('area')
                         ->required()
                         ->label('Area'),
-                    Forms\Components\Select::make('location')
-                        ->relationship('ionizer', 'location')
+                    Forms\Components\TextInput::make('location')
                         ->required()
                         ->label('Location'),
                     ]),

@@ -1755,6 +1755,42 @@ section,
   object-fit: cover; /* Agar gambar terisi penuh dalam kotak */
 }
 
+/* Menambahkan margin bottom pada section */
+.team.section {
+  padding: 60px 0; /* Atur jarak atas dan bawah sesuai kebutuhan */
+}
+
+/* Memastikan container dan row terpusat */
+.container {
+  max-width: 1140px; /* Atur lebar maksimum container */
+  margin: 0 auto; /* Center container secara horizontal */
+}
+
+/* Pastikan row memusatkan kolom-kolom */
+.row {
+  display: flex;
+  justify-content: center; /* Pusatkan konten secara horizontal */
+  flex-wrap: wrap; /* Membungkus kolom jika diperlukan */
+}
+
+/* Menyesuaikan lebar kolom untuk berbagai ukuran layar */
+.col-lg-3, .col-md-6 {
+  flex: 1 1 auto; /* Flex item bisa tumbuh dan menyusut sesuai ruang */
+  max-width: 300px; /* Atur lebar maksimum untuk kolom */
+}
+
+/* Atur jarak antar kolom dengan margin otomatis untuk memusatkan kolom tengah */
+.row > .col-lg-3 {
+  margin: 0 10px; /* Atur jarak antar kolom sesuai kebutuhan */
+}
+
+/* Jika hanya ada 3 kolom dan ingin memastikan kolom kedua berada di tengah */
+.col-lg-3:nth-child(2) {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 
 /*--------------------------------------------------------------
 # Clients Section
