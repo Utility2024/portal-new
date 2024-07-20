@@ -17,29 +17,19 @@ use Edwink\FilamentUserActivity\Traits\UserActivityTrait;
 use BetterFuturesStudio\FilamentLocalLogins\Concerns\HasLocalLogins;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail,  FilamentUser, Auditable
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Auditable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
-    use HasPanelShield;
-    use UserActivityTrait;
-    use HasLocalLogins;
-    use HasRoles;
+    use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
+    use HasPanelShield, UserActivityTrait, HasLocalLogins, HasRoles;
     use \OwenIt\Auditing\Auditable;
 
     const ROLE_SUPERADMIN = 'SUPERADMIN';
-
     const ROLE_ADMIN = 'ADMIN';
-
     const ROLE_EDITOR = 'EDITOR';
-
     const ROLE_USER = 'USER';
 
     const ROLES = [
-        self::ROLE_SUPERADMIN =>'SuperAdmin',
+        self::ROLE_SUPERADMIN => 'SuperAdmin',
         self::ROLE_ADMIN => 'Admin',
         self::ROLE_EDITOR => 'Editor',
         self::ROLE_USER => 'User',
@@ -95,22 +85,36 @@ class User extends Authenticatable implements MustVerifyEmail,  FilamentUser, Au
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->isSuperAdmin() || $this->isAdmin() || $this->isEditor() || $this->isUser();
+        if ($panel->getId() === 'admin') {
+            return $this->role === self::ROLE_ADMIN;
+        }
+
+        // Allow all roles to access 'esd', 'utility', and 'stock' panels
+        if (in_array($panel->getId(), ['esd', 'utility', 'stock'])) {
+            return true;
+        }
+
+        // Default allow access to other panels (if any)
+        return true;
     }
 
-    public function isSuperAdmin(){
+    public function isSuperAdmin()
+    {
         return $this->role === self::ROLE_SUPERADMIN;
     }
 
-    public function isAdmin(){
+    public function isAdmin()
+    {
         return $this->role === self::ROLE_ADMIN;
     }
 
-    public function isEditor(){
+    public function isEditor()
+    {
         return $this->role === self::ROLE_EDITOR;
     }
 
-    public function isUser(){
+    public function isUser()
+    {
         return $this->role === self::ROLE_USER;
     }
 }

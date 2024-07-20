@@ -23,7 +23,7 @@ class TargetMeasurementResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return 'Objective Measuerment';
+        return 'Objective Measurement';
     }
 
     public static function form(Form $form): Form
