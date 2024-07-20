@@ -14,7 +14,7 @@ class AUserStatsOverview extends BaseWidget
         $closedCount = DailyPatrol::where('status', 'CLOSED')->count();
         $openCount = DailyPatrol::where('status', 'OPEN')->count();
         $waitingmaterialCount = DailyPatrol::where('status', 'WAITING MATERIAL')->count();
-        $initialTime = Carbon::now('Asia/Jakarta')->format('H:i:s');
+        $initialTime = Carbon::now('Asia/Jakarta')->format('H:i');
         $initialDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
         $initialDay = Carbon::now('Asia/Jakarta')->format('l'); // Get the day of the week
 

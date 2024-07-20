@@ -9,8 +9,11 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use App\Models\TargetMeasurement;
 use Filament\Forms\Components\Card;
+use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Columns\Summarizers\Sum;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TargetMeasurementResource\Pages;
 use App\Filament\Resources\TargetMeasurementResource\RelationManagers;
@@ -74,10 +77,12 @@ class TargetMeasurementResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('target')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->summarize(Sum::make()),
                 Tables\Columns\TextColumn::make('actual')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->summarize(Sum::make()),
                 Tables\Columns\TextColumn::make('percent')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('week')
