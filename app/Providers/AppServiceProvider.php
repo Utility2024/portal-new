@@ -51,11 +51,6 @@ class AppServiceProvider extends ServiceProvider
                     $icons['stock'] = 'heroicon-o-inbox-stack';
                     $labels['stock'] = 'Stock Material';
                 }
-
-                if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
-                    $icons['admin'] = 'heroicon-o-user';
-                    $labels['admin'] = 'Admin';
-                }
             }
             
             $panelSwitch

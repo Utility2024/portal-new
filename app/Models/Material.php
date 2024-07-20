@@ -15,6 +15,8 @@ class Material extends Model
      *
      * @var array<int, string>
      */
+    protected $connection = 'mysql_stock';
+
     protected $fillable = [
         'sap_code',
         'description',
