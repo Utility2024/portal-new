@@ -12,6 +12,8 @@ class GloveDetail extends Model implements Auditable
 {
     use HasFactory, LogsActivity,  \OwenIt\Auditing\Auditable;
 
+    protected $connection = 'mysql_esd';
+
     protected $fillable = [
         'glove_id',
         'description',

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('packagings', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('packagings', function (Blueprint $table) {
             $table->id();
             $table->string('register_no');
             $table->string('status');

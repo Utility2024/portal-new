@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ground_monitor_box_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('ground_monitor_box_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ground_monitor_box_id')->constrained()->onDelete('cascade');
             $table->string('area');

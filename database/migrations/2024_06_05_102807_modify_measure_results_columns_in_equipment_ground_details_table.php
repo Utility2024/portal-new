@@ -11,7 +11,7 @@ class ModifyMeasureResultsColumnsInEquipmentGroundDetailsTable extends Migration
      */
     public function up(): void
     {
-        Schema::table('equipment_ground_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->table('equipment_ground_details', function (Blueprint $table) {
             $table->string('measure_results_ohm')->change(); // Mengubah tipe data ke float
             $table->string('measure_results_volts')->change(); // Mengubah tipe data ke float
         });
@@ -22,7 +22,7 @@ class ModifyMeasureResultsColumnsInEquipmentGroundDetailsTable extends Migration
      */
     public function down(): void
     {
-        Schema::table('equipment_ground_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->table('equipment_ground_details', function (Blueprint $table) {
             $table->unsignedBigInteger('measure_results_ohm')->change(); // Mengembalikan tipe data ke unsignedBigInteger
             $table->unsignedBigInteger('measure_results_volts')->change(); // Mengembalikan tipe data ke unsignedBigInteger
         });

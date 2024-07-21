@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('target_measurements', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('target_measurements', function (Blueprint $table) {
             $table->id();
             $table->string('measurement_type');
             $table->unsignedBigInteger('target');

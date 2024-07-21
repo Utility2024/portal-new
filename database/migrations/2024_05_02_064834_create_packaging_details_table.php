@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('packaging_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('packaging_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('packaging_id')->constrained()->onDelete('cascade');
             $table->string('status');

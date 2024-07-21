@@ -14,6 +14,8 @@ class Flooring extends Model implements Auditable
 
     protected $fillable = ['register_no', 'area', 'location'];
 
+    protected $connection = 'mysql_esd';
+
     public function flooringDetails()
     {
         return $this->hasMany(FlooringDetail::class);

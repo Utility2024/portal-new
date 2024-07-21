@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('floorings', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->connection('mysql_esd')->create('floorings', function (Blueprint $table) {
             $table->id();
             $table->string('register_no');
             $table->string('area');

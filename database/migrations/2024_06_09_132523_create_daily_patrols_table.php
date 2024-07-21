@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('daily_patrols', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('daily_patrols', function (Blueprint $table) {
             $table->id();
             $table->string('description_problem');
             $table->string('area');

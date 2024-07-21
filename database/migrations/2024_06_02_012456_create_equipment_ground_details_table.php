@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('equipment_ground_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('equipment_ground_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('equipment_ground_id')->constrained('equipment_grounds')->onDelete('cascade');
             $table->string('area')->nullable(); // Mengubah menjadi nullable()

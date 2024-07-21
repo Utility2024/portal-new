@@ -12,6 +12,8 @@ class IonizerDetail extends Model implements Auditable
 {
     use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable;
 
+    protected $connection = 'mysql_esd';
+
     /**
      * The attributes that are mass assignable.
      *

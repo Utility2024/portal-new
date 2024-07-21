@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('soldering_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->table('soldering_details', function (Blueprint $table) {
             $table->string('judgement')->change(); // Menambahkan default value pada kolom 'judgement'
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('soldering_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->table('soldering_details', function (Blueprint $table) {
             $table->string('judgement')->default(null)->change(); // Menghapus default value saat rollback
         });
     }

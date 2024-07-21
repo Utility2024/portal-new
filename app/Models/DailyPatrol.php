@@ -16,6 +16,8 @@ class DailyPatrol extends ApprovableModel implements Auditable
 {
     use HasFactory, LogsActivity, HasFilamentComments, \OwenIt\Auditing\Auditable;
 
+    protected $connection = 'mysql_esd';
+
     protected $fillable = [
         'description_problem',
         'area',

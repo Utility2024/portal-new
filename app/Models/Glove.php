@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Glove extends Model implements Auditable
 {
     use HasFactory, LogsActivity,  \OwenIt\Auditing\Auditable;
+
+    protected $connection = 'mysql_esd';
+    
     protected $fillable =['sap_code','description','delivery'];
 
     public function gloveDetails()

@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class PackagingDetail extends Model implements Auditable
 {
     use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable;
+
+    protected $connection = 'mysql_esd';
+    
     protected $fillable = [
         'packaging_id', 'status', 'item', 'f1', 'f1_scientific', 'judgement', 'remarks'
     ];

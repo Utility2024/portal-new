@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gloves', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('gloves', function (Blueprint $table) {
             $table->id();
             $table->string('sap_code');
             $table->string('description');

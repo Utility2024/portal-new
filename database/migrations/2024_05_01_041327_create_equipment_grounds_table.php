@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('equipment_grounds', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('equipment_grounds', function (Blueprint $table) {
             $table->id();
             $table->string('machine_name');
             $table->string('area');

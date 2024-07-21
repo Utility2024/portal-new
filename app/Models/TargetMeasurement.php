@@ -9,6 +9,8 @@ class TargetMeasurement extends Model
 {
     use HasFactory;
 
+    protected $connection = 'mysql_esd';
+
     protected $fillable = [
         'measurement_type',
         'target',

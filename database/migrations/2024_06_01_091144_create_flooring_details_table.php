@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('flooring_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('flooring_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('flooring_id')->constrained()->onDelete('cascade');
             $table->string('area');

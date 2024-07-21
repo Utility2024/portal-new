@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('ionizer_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->table('ionizer_details', function (Blueprint $table) {
             $table->string('c1')->change(); // Mengubah tipe data ke float
             $table->string('c2')->change();
             $table->string('c3')->change();
@@ -23,7 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('ionizer_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->table('ionizer_details', function (Blueprint $table) {
             $table->unsignedBigInteger('c1')->change(); // Mengembalikan tipe data ke unsignedBigInteger
             $table->unsignedBigInteger('c2')->change();
             $table->unsignedBigInteger('c3')->change(); 

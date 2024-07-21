@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ground_monitor_boxes', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('ground_monitor_boxes', function (Blueprint $table) {
             $table->id();
             $table->string('register_no');
             $table->string('area');

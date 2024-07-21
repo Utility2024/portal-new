@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Ionizer extends Model implements Auditable
 {
     use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable;
+
+    protected $connection = 'mysql_esd';
+
     protected $fillable =['register_no','area','location'];
 
     public function ionizerdetails()

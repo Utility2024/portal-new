@@ -13,7 +13,7 @@ class CreateSolderingDetailsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('soldering_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('soldering_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('soldering_id')->constrained()->onDelete('cascade');
             $table->string('area');

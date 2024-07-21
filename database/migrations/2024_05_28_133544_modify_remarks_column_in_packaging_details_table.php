@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('packaging_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->table('packaging_details', function (Blueprint $table) {
             $table->string('remarks')->nullable()->change();
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('packaging_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->table('packaging_details', function (Blueprint $table) {
             $table->string('remarks')->nullable(false)->change();
         });
     }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('glove_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('glove_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('glove_id')->constrained('gloves')->onDelete('cascade');
             $table->string('description');

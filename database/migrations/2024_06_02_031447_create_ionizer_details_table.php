@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ionizer_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->create('ionizer_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ionizer_id')->constrained('ionizers')->onDelete('cascade');
             $table->string('area');

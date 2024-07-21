@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('worksurface_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->table('worksurface_details', function (Blueprint $table) {
             $table->string('a2')->change();
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('worksurface_details', function (Blueprint $table) {
+        Schema::connection('mysql_esd')->table('worksurface_details', function (Blueprint $table) {
             $table->unsignedBigInteger('a2')->change();
         });
     }

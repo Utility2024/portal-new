@@ -12,6 +12,8 @@ class WorksurfaceDetail extends Model implements Auditable
 {
     use HasFactory, LogsActivity,\OwenIt\Auditing\Auditable;
 
+    protected $connection = 'mysql_esd';
+
     // Tentukan atribut yang bisa diisi secara massal
     protected $fillable = [
         'worksurface_id',

@@ -12,6 +12,8 @@ class GroundMonitorBoxDetail extends Model implements Auditable
 {
     use HasFactory, LogsActivity,\OwenIt\Auditing\Auditable;
 
+    protected $connection = 'mysql_esd';
+
     protected $fillable = [
         'ground_monitor_box_id',
         'area',
