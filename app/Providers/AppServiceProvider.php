@@ -32,16 +32,16 @@ class AppServiceProvider extends ServiceProvider
 
         PanelSwitch::configureUsing(function (PanelSwitch $panelSwitch) {
             $user = auth()->user();
-        
+
             $icons = [];
             $labels = [];
-        
+
             if ($user) {
                 if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
                     $icons['esd'] = 'heroicon-o-bolt';
                     $labels['esd'] = 'ESD';
                 }
-        
+
                 if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
                     $icons['utility'] = 'heroicon-o-adjustments-vertical';
                     $labels['utility'] = 'Utility';
@@ -51,9 +51,20 @@ class AppServiceProvider extends ServiceProvider
                     $icons['stock'] = 'heroicon-o-inbox-stack';
                     $labels['stock'] = 'Stock Material';
                 }
+
+                if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
+                    $icons['admin'] = 'heroicon-o-cog-6-tooth';
+                    $labels['admin'] = 'Setting';
+                }
+
+                if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
+                    $icons['registration'] = 'heroicon-o-clipboard-document-check';
+                    $labels['registration'] = 'Registration Asset ESD';
+                }
             }
-            
+
             $panelSwitch
+                // ->modalWidth('sm')
                 ->modalHeading('Switch Portal')
                 ->slideOver()
                 ->icons($icons)

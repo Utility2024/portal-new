@@ -56,7 +56,7 @@ class HTotalExpensesandIncome extends ApexChartWidget
                 'type' => 'area',
             ],
             'dataLabels' => [
-                'enabled' => false,
+                'enabled' => true,
             ],
             'stroke' => [
                 'curve' => 'smooth',
@@ -137,9 +137,9 @@ class HTotalExpensesandIncome extends ApexChartWidget
 
         foreach ($results as $result) {
             $index = (int)$result->month - 1;
-            $chartData['total_price_in'][$index] = $result->total_price_in;
-            $chartData['total_price_out'][$index] = $result->total_price_out;
-        }
+            $chartData['total_price_in'][$index] = number_format($result->total_price_in, 2, '.', '');
+            $chartData['total_price_out'][$index] = number_format($result->total_price_out, 2, '.', '');
+        }        
 
         return $chartData;
     }

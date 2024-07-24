@@ -37,69 +37,78 @@ class TransactionResource extends Resource
     return $form
         ->schema([
             Card::make()
-                ->schema([
-                    Forms\Components\Select::make('material_id')
-                        ->label('SAP Code')
-                        ->required()
-                        ->relationship('material', 'sap_code')
-                        ->searchable()
-                        ->reactive()
-                        ->afterStateUpdated(function (callable $set, $state) {
-                            $material = Material::find($state);
-                            if ($material) {
-                                $set('description_id', $material->description);
-                                $set('type', $material->type);
-                                $set('last_stock', $material->last_stock);
-                                $set('price', $material->price); // Use 'price' from material
-                            } else {
-                                $set('description_id', null);
-                                $set('type', null);
-                                $set('last_stock', null);
-                                $set('price', null);
-                            }
-                        }),
-                    Forms\Components\TextInput::make('description_id')
-                        ->label('Description')
-                        ->required(),
-                    Forms\Components\TextInput::make('type')
-                        ->label('Type')
-                        ->required(),
-                    Forms\Components\TextInput::make('last_stock')
-                        ->label('Last Stock')
-                        ->disabled(),
-                    Forms\Components\TextInput::make('price')
-                        ->label('Price')
-                        ->numeric()
-                        ->label('Price')
-                        ->prefix('$'), // Make price read-only
-                    Forms\Components\ToggleButtons::make('transaction_type')
-                        ->options([
-                            'IN' => 'IN',
-                            'OUT' => 'OUT'
-                        ])
-                        ->icons([
-                            'IN' => 'heroicon-o-arrow-left-end-on-rectangle',
-                            'OUT' => 'heroicon-o-arrow-right-start-on-rectangle',
-                        ])
-                        ->colors([
-                            'IN' => 'info',
-                            'OUT' => 'danger'
-                        ])
-                        ->inline(),
-                    Forms\Components\DatePicker::make('date')
-                        ->required(),
-                    Forms\Components\TextInput::make('qty')
-                        ->required()
-                        ->numeric(),
-                    Forms\Components\TextInput::make('pic')
-                        ->required()
-                        ->label('PIC')
-                        ->maxLength(255),
-                    Forms\Components\TextArea::make('keterangan')
-                        ->maxLength(255),
-                ])->Columns(2),
+            ->schema([
+                Forms\Components\Select::make('material_id')
+                    ->label('SAP Code')
+                    ->required()
+                    ->searchable()
+                    ->reactive()
+                    ->options(function () {
+                        return Material::query()
+                            ->select('id', 'sap_code', 'description')
+                            ->get()
+                            ->mapWithKeys(function ($material) {
+                                return [
+                                    $material->id => $material->sap_code . ' - ' . $material->description
+                                ];
+                            });
+                    })
+                    ->afterStateUpdated(function (callable $set, $state) {
+                        $material = Material::find($state);
+                        if ($material) {
+                            $set('description_id', $material->description);
+                            $set('type', $material->type);
+                            $set('last_stock', $material->last_stock);
+                            $set('price', $material->price); // Use 'price' from material
+                        } else {
+                            $set('description_id', null);
+                            $set('type', null);
+                            $set('last_stock', null);
+                            $set('price', null);
+                        }
+                    }),
+                Forms\Components\TextInput::make('description_id')
+                    ->label('Description')
+                    ->required(),
+                Forms\Components\TextInput::make('type')
+                    ->label('Type')
+                    ->required(),
+                Forms\Components\TextInput::make('last_stock')
+                    ->label('Last Stock')
+                    ->disabled(),
+                Forms\Components\TextInput::make('price')
+                    ->label('Price')
+                    ->numeric()
+                    ->prefix('$'), // Make price read-only
+                Forms\Components\ToggleButtons::make('transaction_type')
+                    ->options([
+                        'IN' => 'IN',
+                        'OUT' => 'OUT'
+                    ])
+                    ->icons([
+                        'IN' => 'heroicon-o-arrow-left-end-on-rectangle',
+                        'OUT' => 'heroicon-o-arrow-right-start-on-rectangle',
+                    ])
+                    ->colors([
+                        'IN' => 'info',
+                        'OUT' => 'danger'
+                    ])
+                    ->inline(),
+                Forms\Components\DatePicker::make('date')
+                    ->required(),
+                Forms\Components\TextInput::make('qty')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('pic')
+                    ->required()
+                    ->label('PIC')
+                    ->maxLength(255),
+                Forms\Components\TextArea::make('keterangan')
+                    ->maxLength(255),
+            ])->Columns(2)
+            
         ]);
-}
+    }
 
 
 
@@ -120,7 +129,7 @@ class TransactionResource extends Resource
                         ->color(fn (string $state): string => match ($state) {
                             'Spare Part' => 'info',
                             'Indirect Material' => 'warning',
-                            'Spare Part' => 'success',
+                            'Office Supply' => 'success',
                         }),
                     TextEntry::make('transaction_type')
                         ->badge()
@@ -140,12 +149,12 @@ class TransactionResource extends Resource
                     TextEntry::make('price')
                         ->money('USD')
                         ->badge(),
-                    TextEntry::make('total_price_in')
-                        ->money('USD')
-                        ->badge(),
-                    TextEntry::make('total_price_out')
-                        ->money('USD')
-                        ->badge(),
+                    // TextEntry::make('total_price_in')
+                    //     ->money('USD')
+                    //     ->badge(),
+                    // TextEntry::make('total_price_out')
+                    //     ->money('USD')
+                    //     ->badge(),
                     TextEntry::make('total_price')
                         ->money('USD')
                         ->badge(),
@@ -161,9 +170,13 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('row_number')
+                    ->label('No.')
+                    ->getStateUsing(fn ($rowLoop, $livewire) => $rowLoop->iteration),
                 Tables\Columns\TextColumn::make('id')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('date')
                     ->date()
                     ->sortable(),
@@ -199,22 +212,20 @@ class TransactionResource extends Resource
                 Tables\Columns\TextColumn::make('price')
                     ->money('USD')
                     ->sortable()
-                    ->badge()
                     ->summarize(Sum::make()->money('USD')),
-                Tables\Columns\TextColumn::make('total_price_in')
-                    ->money('USD')
-                    ->sortable()
-                    ->badge()
-                    ->summarize(Sum::make()->money('USD')),
-                Tables\Columns\TextColumn::make('total_price_out')
-                    ->money('USD')
-                    ->sortable()
-                    ->badge()
-                    ->summarize(Sum::make()->money('USD')),
+                // Tables\Columns\TextColumn::make('total_price_in')
+                //     ->money('USD')
+                //     ->sortable()
+                //     ->badge()
+                //     ->summarize(Sum::make()->money('USD')),
+                // Tables\Columns\TextColumn::make('total_price_out')
+                //     ->money('USD')
+                //     ->sortable()
+                //     ->badge()
+                //     ->summarize(Sum::make()->money('USD')),
                 Tables\Columns\TextColumn::make('total_price')
                     ->money('USD')
                     ->sortable()
-                    ->badge()
                     ->summarize(Sum::make()->money('USD')),
                 Tables\Columns\TextColumn::make('pic')
                     ->searchable()
@@ -231,6 +242,7 @@ class TransactionResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('id', 'asc')
             ->filters([
                 SelectFilter::make('material_id')
                     ->label('SAP Code')
@@ -343,15 +355,21 @@ class TransactionResource extends Resource
 
         foreach ($data as $row) {
             $index = (int)$row->month - 1;
-
+        
             if ($row->transaction_type == 'IN') {
-                $chartData['in'][$index] = $row->total_qty;
+                $chartData['in'][$index] = number_format($row->total_qty, 2, '.', '');
             } else {
-                $chartData['out'][$index] = $row->total_qty;
+                $chartData['out'][$index] = number_format($row->total_qty, 2, '.', '');
             }
-
-            $chartData['total_price'][$index] += $row->total_price;
+        
+            // Pastikan variabel ini ada jika menggunakan '+='
+            if (!isset($chartData['total_price'][$index])) {
+                $chartData['total_price'][$index] = 0;
+            }
+        
+            $chartData['total_price'][$index] += number_format($row->total_price, 2, '.', '');
         }
+        
 
         return $chartData;
     }

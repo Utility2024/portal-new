@@ -14,7 +14,7 @@ class Transaction extends Model
      *
      * @var array<int, string>
      */
-    protected $connection = 'mysql_stock';
+    // protected $connection = 'mysql_stock';
 
     protected $fillable = [
         'date',

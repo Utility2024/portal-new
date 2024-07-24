@@ -116,7 +116,7 @@ class MaterialResource extends Resource
                     ->color(fn (string $state): string => match ($state) {
                         'Spare Part' => 'info',
                         'Indirect Material' => 'warning',
-                        'Spare Part' => 'success',
+                        'Office Supply' => 'success',
                     })
                     ->icons([
                         'Spare Part' => 'heroicon-o-cog-6-tooth',
@@ -145,10 +145,13 @@ class MaterialResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('row_number')
+                    ->label('No.')
+                    ->getStateUsing(fn ($rowLoop, $livewire) => $rowLoop->iteration),
                 Tables\Columns\TextColumn::make('id')
                     ->sortable()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('sap_code')
                     ->label('SAP Code')
                     ->sortable()
@@ -197,12 +200,10 @@ class MaterialResource extends Resource
                 Tables\Columns\TextColumn::make('price')
                     ->money('USD')
                     ->sortable()
-                    ->badge()
                     ->summarize(Sum::make()->money('USD')),
                 Tables\Columns\TextColumn::make('total_price')
                     ->money('USD')
                     ->sortable()
-                    ->badge()
                     ->summarize(Sum::make()->money('USD')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

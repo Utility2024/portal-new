@@ -12,11 +12,13 @@ use Filament\Forms\Components\Card;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
+// use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TargetMeasurementResource\Pages;
 use App\Filament\Resources\TargetMeasurementResource\RelationManagers;
+use Filament\Tables\Columns\Summarizers\Summarizer;
+use Illuminate\Database\Query\Builder;
 
 class TargetMeasurementResource extends Resource
 {
@@ -84,7 +86,23 @@ class TargetMeasurementResource extends Resource
                     ->sortable()
                     ->summarize(Sum::make()),
                 Tables\Columns\TextColumn::make('percent')
-                    ->searchable(),
+                    ->searchable()
+                    ->summarize(Summarizer::make()
+                        ->label('Percentage Summary')
+                        ->using(function (Builder $query): string {
+                            // Get the sum of the column
+                            $sum = $query->sum('percent');
+                            
+                            // Calculate the total count (adjust as needed)
+                            $total = $query->count(); 
+                            
+                            // Calculate the percentage
+                            $percentage = $total > 0 ? ($sum / $total) * 100 : 0;
+                
+                            // Format the percentage
+                            return number_format($percentage) . '%';
+                        })
+                    ),
                 Tables\Columns\TextColumn::make('week')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('date_from')
