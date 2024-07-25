@@ -7,6 +7,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Components\Tab;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\WithPagination;
 
 class ListTransactions extends ListRecords
 {
@@ -28,5 +29,15 @@ class ListTransactions extends ListRecords
             'OUT' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('transaction_type', 'OUT')),
         ];
+    }
+
+    public function getTableRecordsCount(): int
+    {
+        return $this->getTableRecordsQuery()->count();
+    }
+
+    public function getRowNumber($index): int
+    {
+        return $this->getTableRecordsCount() - $index;
     }
 }

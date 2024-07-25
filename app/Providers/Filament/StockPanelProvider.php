@@ -39,7 +39,6 @@ class StockPanelProvider extends PanelProvider
             ->path('stock')
             ->login(Login::class)
             ->profile()
-            ->passwordReset()
             ->brandName('Stock Control Material')
             ->colors([
                 'primary' => Color::Amber,

@@ -36,7 +36,6 @@ class UtilityPanelProvider extends PanelProvider
             ->path('utility')
             ->login(Login::class)
             ->profile()
-            ->passwordReset()
             ->colors([
                 'primary' => Color::Amber,
             ])
