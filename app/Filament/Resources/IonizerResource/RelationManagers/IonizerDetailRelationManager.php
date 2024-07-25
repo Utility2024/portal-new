@@ -21,6 +21,8 @@ class IonizerDetailRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
+        $ionizerId = session('ionizer_id');
+
         return $form
             ->schema([
                 Card::make()
@@ -28,15 +30,24 @@ class IonizerDetailRelationManager extends RelationManager
                     Forms\Components\Select::make('ionizer_id')
                         ->relationship('ionizer', 'register_no')
                         ->required()
-                        ->label('Register No'),
+                        ->label('Register No')
+                        ->default($ionizerId)
+                        ->extraAttributes(['style' => 'pointer-events: none']),
+
                     Forms\Components\Select::make('area')
                         ->relationship('ionizer', 'area')
                         ->required()
-                        ->label('Area'),
+                        ->label('Area')
+                        ->default($ionizerId)
+                        ->extraAttributes(['style' => 'pointer-events: none']),
+
                     Forms\Components\Select::make('location')
                         ->relationship('ionizer', 'location')
                         ->required()
-                        ->label('Location'),
+                        ->label('Location')
+                        ->default($ionizerId)
+                        ->extraAttributes(['style' => 'pointer-events: none']),
+                        
                     Radio::make('pm_1')
                         ->label('PM 1')
                         ->options([

@@ -27,6 +27,7 @@
         "filament/tables": "3.2",
         "filament/widgets": "3.2",
         "flowframe/laravel-trend": "^0.2.0",
+        "fruitcake/laravel-cors": "dev-develop",
         "guzzlehttp/guzzle": "^7.2",
         "hasnayeen/themes": "^3.0",
         "hexters/hexa-lite": "^1.0",

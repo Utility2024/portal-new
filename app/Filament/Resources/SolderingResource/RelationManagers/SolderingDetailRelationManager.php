@@ -28,21 +28,32 @@ class SolderingDetailRelationManager extends RelationManager
 
     public function form(Forms\Form $form): Forms\Form
     {
+        $solderingId = session('soldering_id');
+
         return $form
             ->schema([
                 Card::make([
                     Select::make('soldering_id')
                         ->label('Soldering')
                         ->options(fn() => Soldering::pluck('register_no', 'id')->toArray())
-                        ->rules('required'),
+                        ->rules('required')
+                        ->default($solderingId)
+                        ->extraAttributes(['style' => 'pointer-events: none']),
+
                     Select::make('area')
                         ->label('Area')
                         ->options(fn() => Soldering::pluck('area', 'id')->toArray())
-                        ->rules('required'),
+                        ->rules('required')
+                        ->default($solderingId)
+                        ->extraAttributes(['style' => 'pointer-events: none']),
+
                     Select::make('location')
                         ->label('Location')
                         ->options(fn() => Soldering::pluck('location', 'id')->toArray())
-                        ->rules('required'),
+                        ->rules('required')
+                        ->default($solderingId)
+                        ->extraAttributes(['style' => 'pointer-events: none']),
+                        
                     TextInput::make('e1')
                         ->required()
                         ->numeric()

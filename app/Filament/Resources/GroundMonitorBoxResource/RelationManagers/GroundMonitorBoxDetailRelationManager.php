@@ -20,21 +20,29 @@ class GroundMonitorBoxDetailRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
+        $groundMonitorBoxId = session('ground_monitor_box_id');
+
         return $form
             ->schema([
                 Card::make([
                     Select::make('ground_monitor_box_id')
                         ->relationship('groundMonitorBox', 'register_no')
                         ->required()
-                        ->label('Ground Monitor Box'),
+                        ->label('Ground Monitor Box')
+                        ->default($groundMonitorBoxId)
+                        ->extraAttributes(['style' => 'pointer-events: none']),
                     Select::make('area')
                         ->relationship('groundMonitorBox', 'area')
                         ->required()
-                        ->label('Area'),
+                        ->label('Area')
+                        ->default($groundMonitorBoxId)
+                        ->extraAttributes(['style' => 'pointer-events: none']),
                     Select::make('location')
                         ->relationship('groundMonitorBox', 'location')
                         ->required()
-                        ->label('Location'),
+                        ->label('Location')
+                        ->default($groundMonitorBoxId)
+                        ->extraAttributes(['style' => 'pointer-events: none']),
                     Forms\Components\ToggleButtons::make('g1')
                         ->options([
                             'YES' => 'YES',

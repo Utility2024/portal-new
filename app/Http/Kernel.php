@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Edwink\FilamentUserActivity\Http\Middleware\RecordUserActivity::class,
+        \Fruitcake\Cors\HandleCors::class,
     ];
 
     /**

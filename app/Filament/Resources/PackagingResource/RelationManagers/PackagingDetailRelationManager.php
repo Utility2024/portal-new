@@ -23,6 +23,8 @@ class PackagingDetailRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
+        $packagingId = session('packaging_id');
+
         return $form
             ->schema([
                 Card::make()
@@ -30,12 +32,15 @@ class PackagingDetailRelationManager extends RelationManager
                         Select::make('packaging_id')
                             ->label('Packaging')
                             ->options(fn() => Packaging::pluck('register_no', 'id')->toArray())
-                            ->rules('required'),
+                            ->rules('required')
+                            ->default($packagingId)
+                            ->extraAttributes(['style' => 'pointer-events: none']),
 
                         Select::make('status')
                             ->label('Status')
                             ->options(fn() => Packaging::pluck('status', 'id')->toArray())
-                            ->rules('required'),
+                            ->default($packagingId)
+                            ->extraAttributes(['style' => 'pointer-events: none']),
 
                         Select::make('item')
                             ->label('Item')

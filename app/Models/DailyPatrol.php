@@ -16,7 +16,7 @@ class DailyPatrol extends ApprovableModel implements Auditable
 {
     use HasFactory, LogsActivity, HasFilamentComments, \OwenIt\Auditing\Auditable;
 
-    protected $connection = 'mysql_esd';
+    // protected $connection = 'mysql';
 
     protected $fillable = [
         'description_problem',
@@ -32,12 +32,12 @@ class DailyPatrol extends ApprovableModel implements Auditable
 
     public function getPhotoBeforeUrlAttribute()
     {
-        return Storage::disk('storage/public')->url($this->photo_before);
+        return Storage::url($this->photo_before);
     }
 
     public function getPhotoAfterUrlAttribute()
     {
-        return Storage::disk('storage/public')->url($this->photo_after);
+        return Storage::url($this->photo_after);
     }
 
     public function getActivitylogOptions(): LogOptions

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
 use App\Filament\Resources\WorksurfaceDetailResource\Widgets\WorksurfaceDetailStatsOverview;
+use App\Models\Worksurface;
 
 class WorksurfaceDetailRelationManager extends RelationManager
 {
@@ -18,6 +19,8 @@ class WorksurfaceDetailRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
+        $worksurfaceId = session('worksurface_id');
+
         return $form
             ->schema([
                 Card::make()
@@ -25,15 +28,21 @@ class WorksurfaceDetailRelationManager extends RelationManager
                         Forms\Components\Select::make('worksurface_id')
                             ->label('Register No')
                             ->relationship('worksurface', 'register_no')
-                            ->required(),
+                            ->required()
+                            ->default($worksurfaceId)
+                            ->extraAttributes(['style' => 'pointer-events: none']),
                         Forms\Components\Select::make('area')
                             ->label('Area')
                             ->relationship('worksurface', 'area')
-                            ->required(),
+                            ->required()
+                            ->default($worksurfaceId)
+                            ->extraAttributes(['style' => 'pointer-events: none']),
                         Forms\Components\Select::make('location')
                             ->label('Location')
                             ->relationship('worksurface', 'location')
-                            ->required(),
+                            ->required()
+                            ->default($worksurfaceId)
+                            ->extraAttributes(['style' => 'pointer-events: none']),
                         Forms\Components\Select::make('item')
                             ->options([
                                 'TABLE' => 'Table',

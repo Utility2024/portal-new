@@ -18,6 +18,8 @@ class GloveDetailRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
+        $gloveId = session('glove_id');
+
         return $form
             ->schema([
                 Card::make()
@@ -25,15 +27,24 @@ class GloveDetailRelationManager extends RelationManager
                     Forms\Components\Select::make('glove_id')
                         ->relationship('glove', 'sap_code')
                         ->required()
-                        ->label('SAP CODE'),
+                        ->label('SAP CODE')
+                        ->default($gloveId)
+                        ->extraAttributes(['style' => 'pointer-events: none;']),
+
                     Forms\Components\Select::make('description')
                         ->relationship('glove', 'description')
                         ->required()
-                        ->label('Description'),
+                        ->label('Description')
+                        ->default($gloveId)
+                        ->extraAttributes(['style' => 'pointer-events: none;']),
+
                     Forms\Components\Select::make('delivery')
                         ->relationship('glove', 'delivery')
                         ->required()
-                        ->label('Delivery'),
+                        ->label('Delivery')
+                        ->default($gloveId)
+                        ->extraAttributes(['style' => 'pointer-events: none;']),
+                        
                     Forms\Components\TextInput::make('c1')
                         ->label('C1')
                         ->rules('required|numeric|min:0|max:1000000000000000000')

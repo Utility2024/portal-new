@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\EquipmentGroundResource\RelationManagers;
 
+use App\Models\EquipmentGround;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
@@ -17,6 +18,8 @@ class EquipmentGroundDetailRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
+        $equipmentGroundId = session('equipment_ground_id');
+
         return $form
             ->schema([
                 Card::make()
@@ -25,17 +28,26 @@ class EquipmentGroundDetailRelationManager extends RelationManager
                             ->relationship('equipmentground', 'machine_name')
                             ->required()
                             ->label('Register No')
-                            ->suffixIcon('heroicon-m-wrench-screwdriver'),
+                            ->suffixIcon('heroicon-m-wrench-screwdriver')
+                            ->default($equipmentGroundId)
+                            ->extraAttributes(['style' => 'pointer-events: none;']),
+
                         Forms\Components\Select::make('area')
                             ->relationship('equipmentground', 'area')
                             ->required()
                             ->label('Area')
-                            ->suffixIcon('heroicon-m-arrow-left-start-on-rectangle'),
+                            ->suffixIcon('heroicon-m-arrow-left-start-on-rectangle')
+                            ->default($equipmentGroundId)
+                            ->extraAttributes(['style' => 'pointer-events: none;']),
+
                         Forms\Components\Select::make('location')
                             ->relationship('equipmentground', 'location')
                             ->required()
                             ->label('Location')
-                            ->suffixIcon('heroicon-m-globe-europe-africa'),
+                            ->suffixIcon('heroicon-m-globe-europe-africa')
+                            ->default($equipmentGroundId)
+                            ->extraAttributes(['style' => 'pointer-events: none;']),
+
                         Forms\Components\TextInput::make('measure_results_ohm')
                             ->required()
                             ->label('Measure Results Ohm')

@@ -88,10 +88,10 @@ class DailyPatrolResource extends Resource
                     ->schema([
                         FileUpload::make('photo_before')
                             ->label('Photo Before')
-                            ->disk('storage/public'),
+                            ->disk('public'),
                         FileUpload::make('photo_after')
                             ->label('Photo After')
-                            ->disk('storage/public'),
+                            ->disk('public'),
                     ])->columns(2),
                 Card::make()
                     ->schema([
@@ -165,10 +165,10 @@ class DailyPatrolResource extends Resource
                     }),
                 ImageColumn::make('photo_before')
                     ->label('Photo Before')
-                    ->disk('storage/public'),
+                    ->disk('public'),
                 ImageColumn::make('photo_after')
                     ->label('Photo After')
-                    ->disk('storage/public'),
+                    ->disk('public'),
                 TextColumn::make('corrective_action')
                     ->label('Corrective Action')
                     ->sortable()

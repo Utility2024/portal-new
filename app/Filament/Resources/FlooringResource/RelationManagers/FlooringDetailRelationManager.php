@@ -20,20 +20,29 @@ class FlooringDetailRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
+        $flooringId = session('flooring_id');
+
         return $form
             ->schema([
                 Card::make([
                     Select::make('flooring_id')
                         ->relationship('flooring', 'register_no')
                         ->required()
-                        ->label('Register No'),
+                        ->label('Register No')
+                        ->default($flooringId)
+                        ->extraAttributes(['style' => 'pointer-events: none;']),
+
                     Select::make('area')
                         ->relationship('flooring', 'area')
                         ->required()
-                        ->label('Area'),
+                        ->label('Area')
+                        ->default($flooringId)
+                        ->extraAttributes(['style' => 'pointer-events: none;']),
                     Select::make('location')
                         ->relationship('flooring', 'location')
-                        ->required(),
+                        ->required()
+                        ->default($flooringId)
+                        ->extraAttributes(['style' => 'pointer-events: none;']),
                     TextInput::make('b1')
                         ->label('B1')
                         ->rules('required|numeric|min:0|max:1000000000000000000')

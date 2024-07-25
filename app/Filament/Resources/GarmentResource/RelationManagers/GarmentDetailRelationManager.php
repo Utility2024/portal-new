@@ -18,16 +18,22 @@ class GarmentDetailRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
+        $garmentId = session('garment_id');
+
         return $form
         ->schema([
             Card::make()
                 ->schema([
                     Forms\Components\Select::make('garment_id')
                         ->relationship('garment', 'nik')
-                        ->required(),
+                        ->required()
+                        ->default($garmentId)
+                        ->extraAttributes(['style' => 'pointer-events: none;']),
                     Forms\Components\Select::make('name')
                         ->relationship('garment', 'name')
-                        ->required(),
+                        ->required()
+                        ->default($garmentId)
+                        ->extraAttributes(['style' => 'pointer-events: none;']),
                     Forms\Components\TextInput::make('d1')
                         ->label('D1 ( Shirt point to point ( 1.00E+4 - 1.00E+11 Ohm ))')
                         ->rules('required|numeric|min:0|max:1000000000000000000')
