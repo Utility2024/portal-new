@@ -99,6 +99,9 @@ class MaterialResource extends Resource
                             ->label('Total Price')
                             ->prefix('$')
                             ->maxValue(42949672.95),
+                        TextInput::make('information')
+                            ->required()
+                            ->label('Information'),
                     ])->columns(2),
             ]);
     }

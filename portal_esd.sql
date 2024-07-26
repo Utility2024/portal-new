@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 24, 2024 at 10:16 AM
+-- Generation Time: Jul 26, 2024 at 12:59 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.8
 
@@ -17284,6 +17284,85 @@ INSERT INTO `packaging_details` (`id`, `packaging_id`, `status`, `item`, `f1`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `process_approvals`
+--
+
+CREATE TABLE `process_approvals` (
+  `id` bigint UNSIGNED NOT NULL,
+  `approvable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `approvable_id` bigint UNSIGNED NOT NULL,
+  `process_approval_flow_step_id` bigint UNSIGNED DEFAULT NULL,
+  `approval_action` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Approved',
+  `approver_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `tenant_id` varchar(38) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `process_approval_flows`
+--
+
+CREATE TABLE `process_approval_flows` (
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `approvable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `process_approval_flow_steps`
+--
+
+CREATE TABLE `process_approval_flow_steps` (
+  `id` bigint UNSIGNED NOT NULL,
+  `process_approval_flow_id` bigint UNSIGNED NOT NULL,
+  `role_id` bigint UNSIGNED NOT NULL,
+  `permissions` json DEFAULT NULL,
+  `order` int DEFAULT NULL,
+  `action` enum('APPROVE','VERIFY','CHECK') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'APPROVE',
+  `active` tinyint NOT NULL DEFAULT '1',
+  `tenant_id` varchar(38) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `process_approval_statuses`
+--
+
+CREATE TABLE `process_approval_statuses` (
+  `id` bigint UNSIGNED NOT NULL,
+  `approvable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `approvable_id` bigint UNSIGNED NOT NULL,
+  `steps` json DEFAULT NULL,
+  `status` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Created',
+  `creator_id` bigint UNSIGNED DEFAULT NULL,
+  `tenant_id` varchar(38) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `process_approval_statuses`
+--
+
+INSERT INTO `process_approval_statuses` (`id`, `approvable_type`, `approvable_id`, `steps`, `status`, `creator_id`, `tenant_id`, `created_at`, `updated_at`) VALUES
+(1, 'App\\Models\\DailyPatrol', 1, '[]', 'Created', 1, NULL, '2024-06-17 21:08:07', '2024-06-17 21:08:07'),
+(2, 'App\\Models\\EquipmentGroundDetail', 8651, '[]', 'Created', 1, NULL, '2024-07-25 17:56:40', '2024-07-25 17:56:40');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `solderings`
 --
 
@@ -22737,6 +22816,40 @@ ALTER TABLE `packaging_details`
   ADD KEY `packaging_details_packaging_id_foreign` (`packaging_id`);
 
 --
+-- Indexes for table `process_approvals`
+--
+ALTER TABLE `process_approvals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `process_approvals_approvable_type_approvable_id_index` (`approvable_type`,`approvable_id`),
+  ADD KEY `process_approvals_process_approval_flow_step_id_foreign` (`process_approval_flow_step_id`),
+  ADD KEY `process_approvals_user_id_foreign` (`user_id`),
+  ADD KEY `process_approvals_tenant_id_index` (`tenant_id`);
+
+--
+-- Indexes for table `process_approval_flows`
+--
+ALTER TABLE `process_approval_flows`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `process_approval_flow_steps`
+--
+ALTER TABLE `process_approval_flow_steps`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `process_approval_flow_steps_process_approval_flow_id_foreign` (`process_approval_flow_id`),
+  ADD KEY `process_approval_flow_steps_role_id_index` (`role_id`),
+  ADD KEY `process_approval_flow_steps_order_index` (`order`),
+  ADD KEY `process_approval_flow_steps_tenant_id_index` (`tenant_id`);
+
+--
+-- Indexes for table `process_approval_statuses`
+--
+ALTER TABLE `process_approval_statuses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `process_approval_statuses_approvable_type_approvable_id_index` (`approvable_type`,`approvable_id`),
+  ADD KEY `process_approval_statuses_tenant_id_index` (`tenant_id`);
+
+--
 -- Indexes for table `solderings`
 --
 ALTER TABLE `solderings`
@@ -22788,7 +22901,7 @@ ALTER TABLE `equipment_grounds`
 -- AUTO_INCREMENT for table `equipment_ground_details`
 --
 ALTER TABLE `equipment_ground_details`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8650;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8652;
 
 --
 -- AUTO_INCREMENT for table `floorings`
@@ -22861,6 +22974,30 @@ ALTER TABLE `packagings`
 --
 ALTER TABLE `packaging_details`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+
+--
+-- AUTO_INCREMENT for table `process_approvals`
+--
+ALTER TABLE `process_approvals`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `process_approval_flows`
+--
+ALTER TABLE `process_approval_flows`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `process_approval_flow_steps`
+--
+ALTER TABLE `process_approval_flow_steps`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `process_approval_statuses`
+--
+ALTER TABLE `process_approval_statuses`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `solderings`

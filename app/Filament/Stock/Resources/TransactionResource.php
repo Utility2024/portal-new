@@ -304,33 +304,48 @@ class TransactionResource extends Resource
         ];
     }
 
-    public static function getDataForChart(): array
+    public static function getDataForChart($startDate, $endDate): array
     {
+        // Mengambil data transaksi
         $data = Transaction::selectRaw('DATE(date) as date, transaction_type, SUM(qty) as total')
+            ->whereBetween('date', [$startDate, $endDate])
             ->groupBy('date', 'transaction_type')
             ->orderBy('date')
             ->get();
 
+        // Menginisialisasi struktur data chart
         $chartData = [
             'dates' => [],
             'in' => [],
             'out' => []
         ];
 
-        foreach ($data as $row) {
-            if (!in_array($row->date, $chartData['dates'])) {
-                $chartData['dates'][] = $row->date;
-            }
+        // Inisialisasi array dengan nilai default
+        $currentDate = $startDate;
+        while (strtotime($currentDate) <= strtotime($endDate)) {
+            $chartData['dates'][] = $currentDate;
+            $chartData['in'][] = 0;
+            $chartData['out'][] = 0;
+            $currentDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+        }
 
-            if ($row->transaction_type == 'IN') {
-                $chartData['in'][] = $row->total;
-            } else {
-                $chartData['out'][] = $row->total;
+        // Mengisi data dari query ke dalam struktur data chart
+        foreach ($data as $row) {
+            $dateIndex = array_search($row->date, $chartData['dates']);
+            if ($dateIndex !== false) {
+                if ($row->transaction_type == 'IN') {
+                    $chartData['in'][$dateIndex] = $row->total;
+                } else {
+                    $chartData['out'][$dateIndex] = $row->total;
+                }
             }
         }
 
         return $chartData;
     }
+
+
+
 
     public static function getDataForYearlyChart($year): array
     {
