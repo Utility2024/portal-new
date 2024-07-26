@@ -167,6 +167,7 @@ class FlooringDetailResource extends Resource
                 TextColumn::make('remarks')->sortable()->searchable()->label('Remarks'),
                 TextColumn::make('created_at')->date()->sortable()->searchable(),
             ])
+            ->defaultSort('id', 'desc')
             ->filters([
                 SelectFilter::make('register_no')
                     ->label('Register No')

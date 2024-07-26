@@ -340,6 +340,7 @@ class GarmentDetailResource extends Resource
                     ->label('Created At')
                     ->date(),
             ])
+            ->defaultSort('id', 'desc')
             ->filters([
                 SelectFilter::make('nik')
                     ->label('NIK')

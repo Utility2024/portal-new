@@ -182,6 +182,7 @@ class DailyPatrolResource extends Resource
                     ->sortable()
                     ->date(),
             ])
+            ->defaultSort('id', 'desc')
             ->filters([
                 // Tambahkan filter jika diperlukan
             ])

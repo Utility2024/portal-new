@@ -308,6 +308,7 @@ class IonizerDetailResource extends Resource
                 Tables\Columns\TextColumn::make('remarks')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->date()->label('Created At'),
             ])
+            ->defaultSort('id', 'desc')
             ->filters([
                 SelectFilter::make('register_no')
                     ->label('Register No')

@@ -165,6 +165,7 @@ class GloveDetailResource extends Resource
                 Tables\Columns\TextColumn::make('remarks')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->date(),
             ])
+            ->defaultSort('id', 'desc')
             ->filters([
                 SelectFilter::make('sap_code')
                     ->label('SAP Code')

@@ -155,6 +155,7 @@ class SolderingDetailResource extends Resource
                 TextColumn::make('remarks')->label('Remarks')->sortable()->searchable(),
                 TextColumn::make('created_at')->date()->sortable()->searchable(),
             ])
+            ->defaultSort('id', 'desc')
             ->filters([
                 SelectFilter::make('register_no')
                     ->label('Register No')
