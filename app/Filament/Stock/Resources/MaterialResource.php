@@ -87,7 +87,7 @@ class MaterialResource extends Resource
                         TextInput::make('price')
                             ->numeric()
                             ->label('Price')
-                            ->prefix('$')
+                            ->prefix('IDR')
                             ->maxValue(42949672.95)
                             ->reactive()
                             ->afterStateUpdated(function ($state, callable $set, callable $get) {
@@ -97,7 +97,7 @@ class MaterialResource extends Resource
                         TextInput::make('total_price')
                             ->numeric()
                             ->label('Total Price')
-                            ->prefix('$')
+                            ->prefix('IDR')
                             ->maxValue(42949672.95),
                         TextInput::make('information')
                             ->required()
@@ -134,10 +134,10 @@ class MaterialResource extends Resource
                     TextEntry::make('unit'),
                     TextEntry::make('information'),
                     TextEntry::make('price')
-                        ->money('USD')
+                        ->money('IDR')
                         ->badge(),
                     TextEntry::make('total_price')
-                        ->money('USD')
+                        ->money('IDR')
                         ->badge(),
                     TextEntry::make('created_at')->date(),
                 ])->columns(2),
@@ -201,13 +201,13 @@ class MaterialResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->money('USD')
+                    ->money('IDR')
                     ->sortable()
-                    ->summarize(Sum::make()->money('USD')),
+                    ->summarize(Sum::make()->money('IDR')),
                 Tables\Columns\TextColumn::make('total_price')
-                    ->money('USD')
+                    ->money('IDR')
                     ->sortable()
-                    ->summarize(Sum::make()->money('USD')),
+                    ->summarize(Sum::make()->money('IDR')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

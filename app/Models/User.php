@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Filament\Panel;
-use OwenIt\Auditing\Contracts\Auditable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Jetstream\HasProfilePhoto;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use OwenIt\Auditing\Contracts\Auditable;
 use Filament\Models\Contracts\FilamentUser;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -15,7 +17,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Edwink\FilamentUserActivity\Traits\UserActivityTrait;
 use BetterFuturesStudio\FilamentLocalLogins\Concerns\HasLocalLogins;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Auditable
 {

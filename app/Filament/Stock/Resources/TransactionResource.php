@@ -25,6 +25,7 @@ use App\Filament\Stock\Widgets\HTotalExpensesandIncome;
 use Filament\Infolists\Components\Card as InfolistCard;
 use App\Filament\Stock\Resources\TransactionResource\Pages;
 use App\Filament\Stock\Resources\TransactionResource\RelationManagers;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class TransactionResource extends Resource
 {
@@ -79,7 +80,7 @@ class TransactionResource extends Resource
                 Forms\Components\TextInput::make('price')
                     ->label('Price')
                     ->numeric()
-                    ->prefix('$'), // Make price read-only
+                    ->prefix('IDR'), // Make price read-only
                 Forms\Components\ToggleButtons::make('transaction_type')
                     ->options([
                         'IN' => 'IN',
@@ -93,7 +94,8 @@ class TransactionResource extends Resource
                         'IN' => 'info',
                         'OUT' => 'danger'
                     ])
-                    ->inline(),
+                    ->inline()
+                    ->required(),
                 Forms\Components\DatePicker::make('date')
                     ->required(),
                 Forms\Components\TextInput::make('qty')
@@ -147,7 +149,7 @@ class TransactionResource extends Resource
                         ->date(),
                     TextEntry::make('qty'),
                     TextEntry::make('price')
-                        ->money('USD')
+                        ->money('IDR')
                         ->badge(),
                     // TextEntry::make('total_price_in')
                     //     ->money('USD')
@@ -156,7 +158,7 @@ class TransactionResource extends Resource
                     //     ->money('USD')
                     //     ->badge(),
                     TextEntry::make('total_price')
-                        ->money('USD')
+                        ->money('IDR')
                         ->badge(),
                     TextEntry::make('pic')
                         ->label('PIC'),
@@ -210,9 +212,9 @@ class TransactionResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->money('USD')
+                    ->money('IDR')
                     ->sortable()
-                    ->summarize(Sum::make()->money('USD')),
+                    ->summarize(Sum::make()->money('IDR')),
                 // Tables\Columns\TextColumn::make('total_price_in')
                 //     ->money('USD')
                 //     ->sortable()
@@ -224,9 +226,9 @@ class TransactionResource extends Resource
                 //     ->badge()
                 //     ->summarize(Sum::make()->money('USD')),
                 Tables\Columns\TextColumn::make('total_price')
-                    ->money('USD')
+                    ->money('IDR')
                     ->sortable()
-                    ->summarize(Sum::make()->money('USD')),
+                    ->summarize(Sum::make()->money('IDR')),
                 Tables\Columns\TextColumn::make('pic')
                     ->searchable()
                     ->label('PIC'),
@@ -281,10 +283,17 @@ class TransactionResource extends Resource
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                ExportBulkAction::make()
+                    ->label('Export Excel'),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
+    }
+
+    public function getTableBulkActions()
+    {
+        return  [
+            ExportBulkAction::make()
+        ];
     }
 
     public static function getRelations(): array

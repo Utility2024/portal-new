@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Models\User;
 use Spatie\Health\Facades\Health;
-use Spatie\Health\Checks\Checks\OptimizedAppCheck;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider;
+use BezhanSalleh\PanelSwitch\PanelSwitch;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
-use BezhanSalleh\PanelSwitch\PanelSwitch;
+use Spatie\Health\Checks\Checks\OptimizedAppCheck;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -71,6 +73,10 @@ class AppServiceProvider extends ServiceProvider
                 ->iconSize(33)
                 ->labels($labels)
                 ->visible(fn (): bool => !empty($icons)); // Show the panel only if there are icons to display
+        });
+
+        Gate::define('viewPulse', function (User $user) {
+            return $user->isAdmin();
         });
     }
 }
