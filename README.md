@@ -68,7 +68,8 @@ Ikuti langkah-langkah berikut untuk meng-clone dan menginstal proyek ini di mesi
 
     ```bash
     php artisan key:generate
-    Konfigurasi Database
+
+Konfigurasi Database
 
 6. **Buka file .env dan atur konfigurasi database Anda. Sesuaikan DB_DATABASE, DB_USERNAME, dan DB_PASSWORD sesuai dengan konfigurasi database lokal Anda**
 
@@ -93,7 +94,7 @@ Ikuti langkah-langkah berikut untuk meng-clone dan menginstal proyek ini di mesi
     ```bash
     php artisan serve
     
-    Aplikasi Anda sekarang dapat diakses di http://localhost:8000
+Aplikasi Anda sekarang dapat diakses di http://localhost:8000
 
 9. **Push And Pull ( Perubahan dan penambahan Fitur ) Dengan aplikasi git**
 
