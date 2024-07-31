@@ -172,7 +172,7 @@ return [
         App\Providers\Filament\UtilityPanelProvider::class,
         App\Providers\Filament\AdministrationPanelProvider::class,
         App\Providers\Filament\StockPanelProvider::class,
-        App\Providers\Filament\RegistrationPanelProvider::class,
+        App\Providers\Filament\HrPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,

@@ -13,6 +13,7 @@ use EightyNine\Approvals\ApprovalPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Rmsramos\Activitylog\ActivitylogPlugin;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin;
+use Hasnayeen\Themes\Http\Middleware\SetTheme;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
@@ -62,6 +63,7 @@ class AdministrationPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                SetTheme::class,
             ])
             ->authMiddleware([
                 Authenticate::class,

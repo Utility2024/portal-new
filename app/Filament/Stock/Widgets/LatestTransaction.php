@@ -37,14 +37,14 @@ class LatestTransaction extends BaseWidget
                         'IN' => 'heroicon-o-arrow-left-end-on-rectangle',
                         'OUT' => 'heroicon-o-arrow-right-start-on-rectangle',
                     ]),
-                Tables\Columns\TextColumn::make('price')
-                    ->money('USD')
-                    ->badge(),
                 Tables\Columns\TextColumn::make('qty')
                     ->label('Quantity')
                     ->numeric(),
+                Tables\Columns\TextColumn::make('price')
+                    ->money('IDR')
+                    ->badge(),
                 Tables\Columns\TextColumn::make('total_price')
-                    ->money('USD')
+                    ->money('IDR')
                     ->badge(), 
                 Tables\Columns\TextColumn::make('pic')
                     ->label('PIC'),

@@ -60,8 +60,8 @@ class AppServiceProvider extends ServiceProvider
                 }
 
                 if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
-                    $icons['registration'] = 'heroicon-o-clipboard-document-check';
-                    $labels['registration'] = 'Registration Asset ESD';
+                    $icons['humanResource'] = 'heroicon-o-user-group';
+                    $labels['humanResource'] = 'Human Resource';
                 }
             }
 
