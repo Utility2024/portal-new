@@ -177,10 +177,23 @@ class DailyPatrolResource extends Resource
                     ->label('Date of Corrective Action')
                     ->sortable()
                     ->date(),
-                TextColumn::make('created_at')
-                    ->label('Created At')
+                TextColumn::make('creator.name')
+                    ->label('Created By')
                     ->sortable()
-                    ->date(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updater.name')
+                    ->label('Updated By')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->date()
+                    ->sortable(),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('id', 'desc')
             ->filters([

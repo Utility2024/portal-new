@@ -105,7 +105,23 @@ class EquipmentGroundResource extends Resource
                         return "<span style='color: green;'>OK: {$counts['ok']}</span> | <span style='color: red;'>NG: {$counts['ng']}</span>";
                     })
                     ->html(),
-                TextColumn::make('created_at')->date()->sortable()->searchable(),
+                TextColumn::make('creator.name')
+                    ->label('Created By')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updater.name')
+                    ->label('Updated By')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->date()
+                    ->sortable(),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('qr_code')
                     ->label('QR Code')
                     ->html()

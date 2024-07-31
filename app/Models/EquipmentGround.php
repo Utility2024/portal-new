@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use OwenIt\Auditing\Contracts\Auditable;
+use App\Models\User;
 //use OwenIt\Auditing\Auditable;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -48,5 +50,36 @@ class EquipmentGround extends Model implements Auditable
     {
         return LogOptions::defaults()
         ->logOnly(['machine_name', 'area', 'location']);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * Get the user who last updated the transaction.
+     */
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    /**
+     * Boot method to attach model events.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Set the creator on creating event
+        static::creating(function ($model) {
+            $model->created_by = Auth::id();
+        });
+
+        // Set the updater on updating event
+        static::updating(function ($model) {
+            $model->updated_by = Auth::id();
+        });
     }
 }

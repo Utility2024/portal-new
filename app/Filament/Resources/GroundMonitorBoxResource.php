@@ -98,7 +98,23 @@ class GroundMonitorBoxResource extends Resource
                         return "<span style='color: green;'>YES: {$counts['yes']}</span> | <span style='color: red;'>NO: {$counts['no']}</span>";
                     })
                     ->html(),
-                TextColumn::make('created_at')->date()->sortable()->searchable(),
+                TextColumn::make('creator.name')
+                    ->label('Created By')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updater.name')
+                    ->label('Updated By')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->date()
+                    ->sortable(),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 // Add filters if necessary

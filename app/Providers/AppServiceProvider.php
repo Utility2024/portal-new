@@ -40,12 +40,12 @@ class AppServiceProvider extends ServiceProvider
 
             if ($user) {
                 if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
-                    $icons['esd'] = 'heroicon-o-bolt';
+                    $icons['esd'] = 'heroicon-o-bolt-slash';
                     $labels['esd'] = 'ESD';
                 }
 
                 if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
-                    $icons['utility'] = 'heroicon-o-adjustments-vertical';
+                    $icons['utility'] = 'heroicon-o-bolt';
                     $labels['utility'] = 'Utility';
                 }
 
@@ -55,13 +55,13 @@ class AppServiceProvider extends ServiceProvider
                 }
 
                 if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
-                    $icons['admin'] = 'heroicon-o-cog-6-tooth';
-                    $labels['admin'] = 'Setting';
+                    $icons['humanResource'] = 'heroicon-o-user-group';
+                    $labels['humanResource'] = 'Human Resource';
                 }
 
                 if ($user->isAdmin() || $user->isEditor() || $user->isUser()) {
-                    $icons['humanResource'] = 'heroicon-o-user-group';
-                    $labels['humanResource'] = 'Human Resource';
+                    $icons['admin'] = 'heroicon-o-cog-6-tooth';
+                    $labels['admin'] = 'Setting';
                 }
             }
 

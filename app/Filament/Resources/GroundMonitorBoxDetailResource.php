@@ -149,7 +149,23 @@ class GroundMonitorBoxDetailResource extends Resource
                             'NO' => 'danger',
                         }),
                 TextColumn::make('remarks')->sortable()->searchable(),
-                TextColumn::make('created_at')->date()->sortable()->searchable(),
+                TextColumn::make('creator.name')
+                    ->label('Created By')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updater.name')
+                    ->label('Updated By')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->date()
+                    ->sortable(),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('id', 'desc')
             ->filters([

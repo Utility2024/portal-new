@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Transaction extends Model
 {
@@ -14,8 +15,6 @@ class Transaction extends Model
      *
      * @var array<int, string>
      */
-    // protected $connection = 'mysql_stock';
-
     protected $fillable = [
         'date',
         'material_id',
@@ -26,7 +25,9 @@ class Transaction extends Model
         'qty',
         'total_price',
         'pic',
-        'keterangan'
+        'keterangan',
+        'created_by',  // Tambahkan ini
+        'updated_by'   // Tambahkan ini
     ];
 
     /**
@@ -35,16 +36,10 @@ class Transaction extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'material_id',
-        'description_id',
-        'type',
-        'price',
-        'transaction_type',
-        'date',
-        'qty',
-        'total_price',
-        'pic',
-        'keterangan'
+        'date' => 'datetime',
+        'price' => 'decimal:2',
+        'qty' => 'integer',
+        'total_price' => 'decimal:2',
     ];
 
     /**
@@ -53,5 +48,39 @@ class Transaction extends Model
     public function material()
     {
         return $this->belongsTo(Material::class);
+    }
+
+    /**
+     * Get the user who created the transaction.
+     */
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * Get the user who last updated the transaction.
+     */
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    /**
+     * Boot method to attach model events.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Set the creator on creating event
+        static::creating(function ($model) {
+            $model->created_by = Auth::id();
+        });
+
+        // Set the updater on updating event
+        static::updating(function ($model) {
+            $model->updated_by = Auth::id();
+        });
     }
 }

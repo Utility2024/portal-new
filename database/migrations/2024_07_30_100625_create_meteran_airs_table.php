@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::connection('mysql_utility')->create('meteran_airs', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->string('yesterday');
+            $table->string('today');
+            $table->string('meter');
             $table->timestamps();
         });
     }

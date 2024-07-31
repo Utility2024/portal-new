@@ -11,28 +11,28 @@ class HTotalExpensesandIncome extends ApexChartWidget
     protected int|string|array $columnSpan = 'full';
 
     /**
-     * Chart Id
+     * ID Grafik
      *
      * @var string
      */
     protected static string $chartId = 'totalExpensesandIncome';
 
     /**
-     * Widget Title
+     * Judul Widget
      *
      * @var string|null
      */
-    protected static ?string $heading = 'Expenses and Income';
+    protected static ?string $heading = 'Pengeluaran dan Pendapatan';
 
     /**
-     * Chart options (series, labels, types, size, animations...)
+     * Opsi Grafik (serangkaian data, label, tipe, ukuran, animasi...)
      * https://apexcharts.com/docs/options
      *
      * @return array
      */
     protected function getOptions(): array
     {
-        // Fetch dynamic data for chart
+        // Ambil data dinamis untuk grafik
         $year = $this->filterFormData['year'] ?? date('Y');
         $chartData = $this->getDataForChart($year);
 
@@ -43,11 +43,11 @@ class HTotalExpensesandIncome extends ApexChartWidget
         return [
             'series' => [
                 [
-                    'name' => 'Total Income',
+                    'name' => 'Total Pendapatan',
                     'data' => $totalPriceInData,
                 ],
                 [
-                    'name' => 'Total Expenses',
+                    'name' => 'Total Pengeluaran',
                     'data' => $totalPriceOutData,
                 ],
             ],
@@ -57,6 +57,9 @@ class HTotalExpensesandIncome extends ApexChartWidget
             ],
             'dataLabels' => [
                 'enabled' => true,
+                // 'formatter' => 'function(value, { seriesIndex, dataPointIndex, w }) {
+                //     return w.config.series[seriesIndex].name + ": " + value.toFixed(2);
+                // }',
             ],
             'stroke' => [
                 'curve' => 'smooth',
@@ -65,16 +68,14 @@ class HTotalExpensesandIncome extends ApexChartWidget
                 'categories' => $months,
             ],
             'tooltip' => [
-                'x' => [
-                    'format' => 'dd/MM/yy HH:mm',
-                ],
+                'enabled' => false, // Nonaktifkan tooltip
             ],
             'colors' => ['#10b981', '#dc2626'],
         ];
     }
 
     /**
-     * Get the form schema for the filter form
+     * Mendapatkan skema formulir untuk formulir filter
      *
      * @return array
      */
@@ -84,12 +85,12 @@ class HTotalExpensesandIncome extends ApexChartWidget
             Select::make('year')
                 ->options($this->getYears())
                 ->default(date('Y'))
-                ->label('Year'),
+                ->label('Tahun'),
         ];
     }
 
     /**
-     * Get the available years from the transactions table
+     * Mendapatkan tahun yang tersedia dari tabel transaksi
      *
      * @return array
      */
@@ -105,7 +106,7 @@ class HTotalExpensesandIncome extends ApexChartWidget
     }
 
     /**
-     * Get data for the chart based on the selected year
+     * Mendapatkan data untuk grafik berdasarkan tahun yang dipilih
      *
      * @param int $year
      * @return array
@@ -124,9 +125,9 @@ class HTotalExpensesandIncome extends ApexChartWidget
             ->get();
 
         $months = [
-            '01' => 'January', '02' => 'February', '03' => 'March', '04' => 'April',
-            '05' => 'May', '06' => 'June', '07' => 'July', '08' => 'August',
-            '09' => 'September', '10' => 'October', '11' => 'November', '12' => 'December'
+            '01' => 'Januari', '02' => 'Februari', '03' => 'Maret', '04' => 'April',
+            '05' => 'Mei', '06' => 'Juni', '07' => 'Juli', '08' => 'Agustus',
+            '09' => 'September', '10' => 'Oktober', '11' => 'November', '12' => 'Desember'
         ];
 
         $chartData = [
@@ -137,8 +138,8 @@ class HTotalExpensesandIncome extends ApexChartWidget
 
         foreach ($results as $result) {
             $index = (int)$result->month - 1;
-            $chartData['total_price_in'][$index] = number_format($result->total_price_in, 2, '.', '');
-            $chartData['total_price_out'][$index] = number_format($result->total_price_out, 2, '.', '');
+            $chartData['total_price_in'][$index] = (float) $result->total_price_in;
+            $chartData['total_price_out'][$index] = (float) $result->total_price_out;
         }        
 
         return $chartData;
