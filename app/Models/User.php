@@ -15,14 +15,17 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Solutionforest\FilamentEmail2fa\Trait\HasTwoFALogin;
 use Edwink\FilamentUserActivity\Traits\UserActivityTrait;
+use Solutionforest\FilamentEmail2fa\Interfaces\RequireTwoFALogin;
 use BetterFuturesStudio\FilamentLocalLogins\Concerns\HasLocalLogins;
 
-class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Auditable
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Auditable, RequireTwoFALogin
 {
     use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
     use HasPanelShield, UserActivityTrait, HasLocalLogins, HasRoles;
     use \OwenIt\Auditing\Auditable;
+    use HasTwoFALogin;
 
     const ROLE_SUPERADMIN = 'SUPERADMIN';
     const ROLE_ADMIN = 'ADMIN';

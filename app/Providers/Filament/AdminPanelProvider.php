@@ -54,6 +54,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use TomatoPHP\FilamentAccounts\FilamentAccountsSaaSPlugin;
 use Edwink\FilamentUserActivity\FilamentUserActivityPlugin;
 use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
+use Solutionforest\FilamentEmail2fa\FilamentEmail2faPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
 use Tobiasla78\FilamentSimplePages\FilamentSimplePagesPlugin;
@@ -119,7 +120,8 @@ class AdminPanelProvider extends PanelProvider
                 FilamentClearCachePlugin::make(),
                 // ApprovalPlugin::make(),
                 SpotlightPlugin::make(),
-                FilamentApexChartsPlugin::make()
+                FilamentApexChartsPlugin::make(),
+                // FilamentEmail2faPlugin::make()
             ])
             ->authMiddleware([
                  RedirectIfNotInstalled::class, // <- Add this

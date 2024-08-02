@@ -63,6 +63,7 @@
         "shuvroroy/filament-spatie-laravel-backup": "^2.1",
         "shuvroroy/filament-spatie-laravel-health": "^2.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
+        "solution-forest/filament-email-2fa": "^1.1",
         "spatie/laravel-activitylog": "^4.8",
         "spatie/laravel-analytics": "^5.3",
         "spatie/laravel-health": "^1.29",

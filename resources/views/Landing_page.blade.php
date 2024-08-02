@@ -41,7 +41,7 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="http://192.168.59.98" class="logo d-flex align-items-center me-auto">
+      <a href="http://192.168.59.99" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src=" {{ url('images/logo_siix.png') }}" alt="">
         <!-- <h1 class="#">Portal</h1> -->
@@ -56,7 +56,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted flex-md-shrink-0" href="http://192.168.59.98/#portal">Get Started</a>
+      <a class="btn-getstarted flex-md-shrink-0" href="http://192.168.59.99/#portal">Get Started</a>
 
     </div>
   </header>
@@ -101,7 +101,7 @@
               <i class="bi bi-activity icon"></i>
               <h3>ESD Portal</h3>
               <!-- <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis tempore et consequatur.</p> -->
-              <a href="http://192.168.59.98/esd/" class="read-more stretched-link"><span>Visit Website</span> <i class="bi bi-arrow-right"></i></a>
+              <a href="http://192.168.59.99/esd/" class="read-more stretched-link"><span>Visit Website</span> <i class="bi bi-arrow-right"></i></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -110,7 +110,7 @@
               <i class="bi bi-basket icon"></i>
               <h3>Stock Control Material</h3>
               <!-- <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.</p> -->
-              <a href="http://192.168.59.98/stock/" class="read-more stretched-link"><span>Visit Website</span> <i class="bi bi-arrow-right"></i></a>
+              <a href="http://192.168.59.99/stock/" class="read-more stretched-link"><span>Visit Website</span> <i class="bi bi-arrow-right"></i></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -119,7 +119,7 @@
               <i class="bi bi-lightning icon"></i>
               <h3>Utility Portal</h3>
               <!-- <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p> -->
-              <a href="http://192.168.59.98/utility/" class="read-more stretched-link"><span>Visit Website</span> <i class="bi bi-arrow-right"></i></a>
+              <a href="http://192.168.59.99/utility/" class="read-more stretched-link"><span>Visit Website</span> <i class="bi bi-arrow-right"></i></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -128,7 +128,7 @@
               <i class="bi bi-people icon"></i>
               <h3>HR Portal</h3>
               <!-- <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p> -->
-              <a href="http://192.168.59.98/humanResource/" class="read-more stretched-link"><span>Visit Website</span> <i class="bi bi-arrow-right"></i></a>
+              <a href="http://192.168.59.99/humanResource/" class="read-more stretched-link"><span>Visit Website</span> <i class="bi bi-arrow-right"></i></a>
             </div>
           </div><!-- End Service Item -->
         </div>

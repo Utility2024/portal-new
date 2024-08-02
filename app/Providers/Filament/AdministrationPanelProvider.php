@@ -27,6 +27,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Edwink\FilamentUserActivity\FilamentUserActivityPlugin;
 use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
+use Solutionforest\FilamentEmail2fa\FilamentEmail2faPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 
 class AdministrationPanelProvider extends PanelProvider
@@ -75,9 +76,9 @@ class AdministrationPanelProvider extends PanelProvider
                 // new LocalLogins(),
                 ThemesPlugin::make(),
                 FilamentClearCachePlugin::make(),
-                ApprovalPlugin::make(),
+                // ApprovalPlugin::make(),
                 SpotlightPlugin::make(),
-                FilamentApexChartsPlugin::make()
+                FilamentApexChartsPlugin::make(),
             ]);
     }
 }
