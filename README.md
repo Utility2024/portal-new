@@ -39,7 +39,7 @@ Ikuti langkah-langkah berikut untuk meng-clone dan menginstal proyek ini di mesi
    Clone repository ini ke mesin lokal Anda ke direktory ini C:\laragon\www menggunakan perintah berikut:
 
    ```bash
-   git clone https://github.com/Utility2024/portal.git
+   git clone https://github.com/Utility2024/portal-new.git
    
 2. **Masuk ke Direktori Proyek**
 
